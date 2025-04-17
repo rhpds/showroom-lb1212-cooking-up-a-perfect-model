@@ -1,4 +1,3 @@
-* xref:index.adoc[Workshop Introduction]
 ** xref:environment.adoc[Working Environment]
 ** xref:use-case.adoc[Workshop Use Case]
 * xref:foundation-models.adoc[How to work with a Foundation Model]
