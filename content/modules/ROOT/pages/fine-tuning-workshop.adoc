@@ -1,0 +1,119 @@
+// modules/ROOT/pages/fine-tuning-workshop.adoc
+= Fine‑Tuning & Customizing Model Responses
+:page-description: Full workflow for fine‑tuning with InstructLab
+
+//— Overview
+[[overview]]
+== Overview
+
+Fine‑tuning a large language model involves adapting a pre‑trained model by further training it on new, task‑specific data. This allows the model to produce more relevant, accurate, and context‑aware outputs that align precisely with enterprise‑specific use cases.
+
+InstructLab simplifies this complex process by providing a structured, taxonomy‑guided synthetic data generation (SDG) method. The SDG process leverages a teacher model to generate high‑quality synthetic data based on carefully curated enterprise documents and custom‑prepared seed examples (`qna.yaml`). This data then becomes the training set to fine‑tune foundation models, such as the Mistral 7B Instruct, to address specialized tasks with enhanced precision and context‑awareness.
+
+//— How InstructLab Helps Align Models
+[[alignment]]
+== How InstructLab Helps Align Models
+
+InstructLab addresses critical limitations in general‑purpose foundation models, particularly their inherent lack of domain‑specific expertise and tendency to hallucinate incorrect information.
+
+To tackle these issues, InstructLab uses a multi‑phase training and synthetic data generation strategy that deeply aligns the model with enterprise‑specific knowledge and skills.
+
+image::instructlab.png[InstructLab,100%,100%]
+
+//— Taxonomy‑Driven Data Curation
+[[taxonomy]]
+== Taxonomy‑Driven Data Curation
+
+Effective alignment begins with clearly structured data. InstructLab employs a taxonomy‑driven approach, organizing enterprise‑specific information into a logical, hierarchical folder structure. This taxonomy consists of distinct categories—foundational skills (e.g., math, writing), compositional skills (e.g., extraction from technical manuals), and specialized knowledge areas (e.g., historical texts).
+
+By structuring data in a clear, hierarchical format and pairing it with precise question‑and‑answer examples (`qna.yaml`), the synthetic data generation process is guided precisely, ensuring the produced training dataset closely mirrors your enterprise’s unique needs.
+
+//— Large‑Scale Synthetic Data Generation
+[[sdg]]
+== Large‑Scale Synthetic Data Generation
+
+To effectively fine‑tune models, you need extensive, high‑quality training data. InstructLab automates this step through its synthetic data generation (SDG) pipeline, significantly expanding your training datasets based on initial Q&A seed examples.
+
+Leveraging powerful teacher models, this pipeline generates additional, highly relevant synthetic Q&A data automatically, greatly reducing manual labor and accelerating dataset creation.
+
+//— Model Training with New Data
+[[model-training]]
+== Model Training with New Data
+
+Once synthetic data is curated and generated, InstructLab utilizes phased, large‑scale alignment tuning—training your model iteratively in multiple stages, first on general knowledge and then refining it with specialized enterprise skills. This structured training approach ensures models not only understand broad concepts but can also perform specific, nuanced tasks effectively.
+
+//— The Value in Enterprise Data
+[[enterprise-data-value]]
+== The Value in Enterprise Data
+
+It is estimated that only about 1% of enterprise data is represented in popular large language models. This minimal coverage significantly restricts the models' capability to understand and interact meaningfully within specific organizational contexts.
+
+Incorporating enterprise data into pre‑trained models through techniques like Retrieval‑Augmented Generation (RAG) or fine‑tuning can significantly improve domain‑specific document analysis, procedural analysis, pattern diagnosis, and more.
+
+//— Curating the InstructLab Taxonomy & Best Practices
+[[best-practices]]
+== Curating the InstructLab Taxonomy & Best Practices
+
+Effective taxonomy curation is foundational to achieving optimal results when using InstructLab. The taxonomy serves as the backbone for data organization, impacting the synthetic data generation pipeline and subsequent fine‑tuning processes.
+
+* **Domain Identification:** Define your domain (e.g., cybersecurity) and keep taxonomy content within scope.
+* **Seed Data Preparation (`qna.yaml`):** Use explicit context snippets verbatim from source documents, paired with diverse Q&A examples.
+* **Data Diversity:** Reflect different content types—definitions, procedures, tables—to generate robust synthetic data.
+* **Token Management:** Keep context + Q&A near ~750 tokens (~550 words) to avoid input limits.
+
+//— Curating Our Unique Airline Seed Data
+[[airline-seed-data]]
+== Curating Our Unique Airline Seed Data with InstructLab
+
+In this workshop, we'll fine‑tune a model specifically for **404 Airlines**. Domains include:
+
+|===
+| Operational Procedures    | Customer Service Guidelines      | Safety and Compliance
+
+| Check‑in policies          | Ticketing policies               | Aviation safety protocols
+| Boarding procedures        | Baggage rules                    | Regulatory compliance documentation
+| Emergency response guides  | Cancellation & refund procedures | Incident reporting processes
+|===
+
+//— Preparing Seed Data
+[[preparing-seed-data]]
+== Preparing Seed Data (`qna.yaml`) for 404 Airlines
+
+Each `qna.yaml` entry includes:
+
+[source,yaml]
+----
+- context: |
+    Passengers traveling in economy class are permitted one personal item and one carry-on bag. Carry-on dimensions must not exceed 22 x 14 x 9 inches, and the item must weigh no more than 25 pounds.
+  questions_and_answers:
+    - question: |
+        What are the maximum allowed dimensions for a carry-on bag in economy class on 404 Airlines?
+      answer: |
+        The maximum dimensions for a carry-on bag in economy class on 404 Airlines are 22 x 14 x 9 inches.
+    - question: |
+        How many items can economy passengers bring on board on 404 Airlines flights?
+      answer: |
+        Economy passengers can bring one personal item and one carry-on bag on board 404 Airlines flights.
+    - question: |
+        What is the weight limit for carry-on luggage for economy passengers?
+      answer: |
+        The weight limit for carry-on luggage for economy passengers is 25 pounds.
+----
+
+//— Generating Synthetic Data
+[[generate-synthetic-data]]
+== Let’s Generate Synthetic Data!
+
+In this section, we’ll invoke the SDG pipeline in InstructLab to expand our `qna.yaml` seed examples into a rich, synthetic Q&A dataset.
+
+//— Fine‑Tuning The Model
+[[fine-tuning-model]]
+== Fine‑Tuning The Model With Our New Dataset
+
+Here we’ll take our synthetic dataset and perform multi‑phase fine‑tuning on the foundation model—first general, then specialized.
+
+//— Testing The Model
+[[testing-model]]
+== Testing the Model’s Responses
+
+Finally, we’ll craft evaluation prompts and run tests to ensure the fine‑tuned model behaves as expected on enterprise tasks.

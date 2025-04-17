@@ -1,7 +1,22 @@
+// modules/ROOT/nav.adoc
 * xref:index.adoc[Workshop Introduction]
 ** xref:environment.adoc[Working Environment]
 ** xref:use-case.adoc[Workshop Use Case]
 * xref:foundation-models.adoc[How to work with a Foundation Model]
+* xref:fine-tuning-workshop.adoc[Fine‑Tuning & Customizing Model Responses]
+** xref:fine-tuning-workshop.adoc#overview[Overview]
+** xref:fine-tuning-workshop.adoc#alignment[How InstructLab Helps Align Models]
+** xref:fine-tuning-workshop.adoc#taxonomy[Taxonomy‑Driven Data Curation]
+** xref:fine-tuning-workshop.adoc#sdg[Large‑Scale Synthetic Data Generation]
+** xref:fine-tuning-workshop.adoc#model-training[Model Training with New Data]
+** xref:fine-tuning-workshop.adoc#enterprise-data-value[The Value in Enterprise Data]
+** xref:fine-tuning-workshop.adoc#best-practices[Curating the InstructLab Taxonomy & Best Practices]
+** xref:fine-tuning-workshop.adoc#airline-seed-data[Curating Our Unique Airline Seed Data with InstructLab]
+** xref:fine-tuning-workshop.adoc#preparing-seed-data[Preparing Seed Data (`qna.yaml`) for 404 Airlines]
+** xref:fine-tuning-workshop.adoc#generate-synthetic-data[Let’s Generate Synthetic Data!]
+** xref:fine-tuning-workshop.adoc#fine-tuning-model[Fine‑Tuning The Model With Our New Dataset]
+** xref:fine-tuning-workshop.adoc#testing-model[Testing the Model’s Responses]
+
 
 // ** xref:module-01.adoc#repositories[Repositories]
 // ** xref:module-01.adoc#software[Software]
