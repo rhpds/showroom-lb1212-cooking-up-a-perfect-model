@@ -15,7 +15,8 @@ asciidoc:
     ssh_password: devops
     ssh_command: ssh someone@example.com
   page-links:
-  - url: https://redhat.com
-    text: Red Hat
-  - url: https://instructlab.ai
-    text: InstructLab
+    - url: https://redhat.com
+      text: Red Hat
+
+  extensions:
+  - ./content/lib/remote-include-processor.js
