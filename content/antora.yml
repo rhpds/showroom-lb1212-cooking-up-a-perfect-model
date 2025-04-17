@@ -1,13 +1,13 @@
-name: modules
-title: Default Title
-version: master
+name: cooking-perfect-model-lab
+title: Cooking up the Perfect Model
+version: 1.0
 nav:
   - modules/ROOT/nav.adoc
 
 asciidoc:
   attributes:
-    lab_name: "I'm the lab_name var"
-    release-version: master
+    lab_name: "Cooking up the Perfect Model"
+    release-version: 1.0
     page-pagination: true
     my_var: "foo"
     guid: my-guid
@@ -17,3 +17,5 @@ asciidoc:
     page-links:
     - url: https://redhat.com
       text: Red Hat
+    - url: https://instructlab.ai
+      text: InstructLab
