@@ -1,0 +1,5 @@
+// modules/ROOT/pages/conclusion.adoc
+= Conclusion
+:page-description: Key takeaways and next steps
+
+// TODO: Summarize what we’ve covered and point to further learning resources or action items.

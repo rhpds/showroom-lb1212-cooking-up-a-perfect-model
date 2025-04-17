@@ -1,4 +1,3 @@
-// modules/ROOT/nav.adoc
 * xref:index.adoc[Workshop Introduction]
 ** xref:environment.adoc[Working Environment]
 ** xref:use-case.adoc[Workshop Use Case]
@@ -12,15 +11,13 @@
 ** xref:fine-tuning-workshop.adoc#enterprise-data-value[The Value in Enterprise Data]
 ** xref:fine-tuning-workshop.adoc#best-practices[Curating the InstructLab Taxonomy & Best Practices]
 ** xref:fine-tuning-workshop.adoc#airline-seed-data[Curating Our Unique Airline Seed Data with InstructLab]
-** xref:fine-tuning-workshop.adoc#preparing-seed-data[Preparing Seed Data (`qna.yaml`) for 404 Airlines]
+** xref:fine-tuning-workshop.adoc#preparing-seed-data[Preparing Seed Data (`qna.yaml`) for 404 Airlines]
 ** xref:fine-tuning-workshop.adoc#generate-synthetic-data[Let’s Generate Synthetic Data!]
 ** xref:fine-tuning-workshop.adoc#fine-tuning-model[Fine‑Tuning The Model With Our New Dataset]
 ** xref:fine-tuning-workshop.adoc#testing-model[Testing the Model’s Responses]
-
-
-// ** xref:module-01.adoc#repositories[Repositories]
-// ** xref:module-01.adoc#software[Software]
-
-// * xref:module-02.adoc[2. GitHub Sourced Container]
-// ** xref:module-02.adoc#prerequisites[Install Prerequisites]
-// ** xref:module-02.adoc#container[Enable Container]
+** xref:integrating-llm.adoc[Integrating the LLM into your application]
+*** xref:integrating-llm.adoc#serve-new-model[Serve new model]
+*** xref:integrating-llm.adoc#test-out-results[Test out results]
+** xref:conclusion.adoc[Conclusion]
+** xref:appendix.adoc[Appendix]
+*** xref:appendix.adoc#faqs[FAQs]

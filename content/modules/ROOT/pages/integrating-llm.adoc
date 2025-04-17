@@ -1,0 +1,13 @@
+// modules/ROOT/pages/integrating-llm.adoc
+= Integrating the LLM into your application
+:page-description: How to serve and test your fine‑tuned model in your app
+
+[[serve-new-model]]
+== Serve new model
+
+// TODO: Describe to deploy the pre-downloaded model
+
+[[test-out-results]]
+== Test out results
+
+// TODO: Outline steps for sending sample prompts to the served model in 404 airlines app and validating its outputs.
