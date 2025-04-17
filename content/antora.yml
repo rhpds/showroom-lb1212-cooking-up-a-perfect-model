@@ -1,6 +1,6 @@
 name: modules
 title: Cooking up the Perfect Model
-version: 1.0
+version: master
 nav:
   - modules/ROOT/nav.adoc
 
