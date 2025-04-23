@@ -12,6 +12,7 @@ content:
 
 ui:
   bundle:
+
     url: https://github.com/rhpds/rhdp_showroom_theme/releases/download/rh-summit-2025/ui-bundle.zip
 
 runtime:

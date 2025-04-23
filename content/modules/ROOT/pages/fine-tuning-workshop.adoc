@@ -104,16 +104,90 @@ Each `qna.yaml` entry includes:
 [[generate-synthetic-data]]
 == Let’s Generate Synthetic Data!
 
-In this section, we’ll invoke the SDG pipeline in InstructLab to expand our `qna.yaml` seed examples into a rich, synthetic Q&A dataset.
+
+Now that you've curated your seed examples (`qna.yaml` files), it's time to expand them into a rich training dataset using InstructLab’s Synthetic Data Generation (SDG) pipeline.
+
+In the *Lower Terminal*, run:
+
+[source,bash]
+----
+ilab generate
+----
+
+This will use a "teacher" model to generate dozens of new Q&A examples based on the patterns in your `qna.yaml` file. These synthetic examples are automatically aligned with your taxonomy and formatted to train the model effectively.
+
+Once generation completes, your new dataset will be located inside:
+
+[source,bash]
+----
+taxonomy/knowledge/[your-domain]/[subdomain]/generated/
+----
+
+
 
 //— Fine‑Tuning The Model
 [[fine-tuning-model]]
 == Fine‑Tuning The Model With Our New Dataset
 
-Here we’ll take our synthetic dataset and perform multi‑phase fine‑tuning on the foundation model—first general, then specialized.
+With your synthetic data ready, let’s move on to fine-tuning.
+
+Fine-tuning trains the model in multiple phases:
+
+* *General phase* – Aligns with broadly applicable skills.
+* *Specialized phase* – Sharpens the model with enterprise-specific tasks (in our case, 404 Airlines policies and procedures).
+
+In the *Lower Terminal*, run:
+
+[source,bash]
+----
+ilab train
+----
+
+The model will begin consuming the synthetic dataset and gradually adjust its internal weights. This may take several minutes depending on your hardware.
+
+Behind the scenes, InstructLab uses QLoRA, a lightweight fine-tuning method that makes training feasible on consumer-grade GPUs or CPUs.
+
+Once complete, your newly fine-tuned model will be saved in the following directory:
+
+[source,bash]
+----
+models/
+----
+
 
 //— Testing The Model
 [[testing-model]]
 == Testing the Model’s Responses
 
-Finally, we’ll craft evaluation prompts and run tests to ensure the fine‑tuned model behaves as expected on enterprise tasks.
+Now it’s time to interact with the model and see what it learned.
+
+In the *Upper Terminal*, start the model server:
+
+[source,bash]
+----
+ilab serve --model-path ./models/<your-finetuned-model>.gguf
+----
+
+Once the model is running, activate your Python environment in another terminal window:
+
+[source,bash]
+----
+source venv/bin/activate
+----
+
+Then launch an interactive chat session:
+
+[source,bash]
+----
+ilab chat
+----
+
+Try asking 404 Airlines-specific questions like:
+
+[source,text]
+----
+What’s the maximum carry-on size for economy passengers?
+How does 404 Airlines handle refunds for weather-related cancellations?
+----
+
+Observe how well the model responds. If answers are inaccurate or incomplete, revisit your `qna.yaml` examples or review your taxonomy structure for improvements.
