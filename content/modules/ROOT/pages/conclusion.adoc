@@ -2,4 +2,14 @@
 = Conclusion
 :page-description: Key takeaways and next steps
 
-// TODO: Summarize what we’ve covered and point to further learning resources or action items.
+Congratulations — you’ve just customized a large language model for a specific enterprise use case using open source tools!
+
+In this lab, you:
+
+* Structured your domain data using a taxonomy
+* Created seed data and expanded it with synthetic Q&A
+* Fine-tuned a foundation model
+* Evaluated the model using test prompts
+* Integrated it into a real application
+
+This workflow is fully portable — you can use it for any domain, from finance to education to healthcare. Best of all, *you own the model and the data*.
