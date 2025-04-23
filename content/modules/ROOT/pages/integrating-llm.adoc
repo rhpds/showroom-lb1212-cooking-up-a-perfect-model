@@ -5,9 +5,44 @@
 [[serve-new-model]]
 == Serve new model
 
-// TODO: Describe to deploy the pre-downloaded model
+Now that you’ve tested your fine-tuned model, let’s explore how to integrate it into an actual application.
+
+In this workshop, we’ve provided a mock airline interface called *404 Airlines Demo App*, which simulates customer interactions. This web app is containerized and connected to your local model server. It allows you to:
+
+* Test responses in a real UI
+* Simulate help desk queries
+* Evaluate policy handling and user experience
+
+No frontend code or deployment setup is needed — just interact with the app to validate that your model aligns with enterprise expectations.
+
+=== Start the Model Server
+
+Before using the application, ensure your model is running. In the *Upper Terminal*, run:
+
+[source,bash]
+----
+ilab serve --model-path ./models/<your-finetuned-model>.gguf
+----
+
+This makes your model available via a local API, which the 404 Airlines Demo App connects to. Behind the scenes, this step spins up a lightweight inference server powered by `vLLM` or `llama.cpp`, depending on your setup.
+
 
 [[test-out-results]]
 == Test out results
 
-// TODO: Outline steps for sending sample prompts to the served model in 404 airlines app and validating its outputs.
+=== Interact with the 404 Airlines App
+
+Now switch to the *404 Airlines Demo App* tab in your environment.
+
+Try asking domain-specific questions like:
+
+[source,text]
+----
+Can I bring two carry-ons?
+What is the refund policy for mechanical delays?
+How early should I check in for an international flight?
+----
+
+You’re now seeing your model in action! This app proxies requests to your running model server and displays its answers in a user-friendly interface.
+
+If responses are vague or incorrect, revisit your taxonomy and refine the `qna.yaml` seed examples used during synthetic data generation. That’s how we iterate and improve!
