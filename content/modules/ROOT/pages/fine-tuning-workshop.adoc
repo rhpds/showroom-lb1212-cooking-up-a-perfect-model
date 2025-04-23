@@ -104,6 +104,7 @@ Each `qna.yaml` entry includes:
 [[generate-synthetic-data]]
 == Let’s Generate Synthetic Data!
 
+
 Now that you've curated your seed examples (`qna.yaml` files), it's time to expand them into a rich training dataset using InstructLab’s Synthetic Data Generation (SDG) pipeline.
 
 In the *Lower Terminal*, run:

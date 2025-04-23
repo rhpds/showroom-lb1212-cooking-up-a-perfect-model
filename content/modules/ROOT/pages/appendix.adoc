@@ -1,0 +1,12 @@
+// modules/ROOT/pages/appendix.adoc
+= Appendix
+:page-description: FAQs and additional notes
+
+[[faqs]]
+== FAQs
+
+=== Can InstructLab‑generated models handle real‑time dynamic data?
+Yes, when integrated with retrieval‑augmented generation (RAG), they can effectively handle dynamic datasets.
+
+=== What differentiates SDG 1.0 from SDG 1.5?
+SDG 1.5 introduces advanced, agentic flows for cleaning and generating high‑quality synthetic data, suitable for enterprise‑grade deployment.

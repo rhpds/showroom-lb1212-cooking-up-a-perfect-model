@@ -1,0 +1,19 @@
+// modules/ROOT/pages/use-case.adoc
+
+= Understanding the workshop use case
+:page-nav-title: Workshop Use Case
+:page-description: 404 Airlines scenario overview
+
+To demonstrate InstructLab’s capabilities effectively, this workshop uses a realistic scenario centered around 404 Airlines—a hypothetical airline with specific needs in customer service, operational efficiency, and compliance management.
+
+Currently, 404 Airlines faces challenges typical for enterprises seeking to leverage AI:
+
+. Lack of Domain-specific AI Responses::
+  General-purpose models cannot reliably answer detailed policy questions or provide operational instructions specific to 404 Airlines, such as precise baggage restrictions or check-in procedures.
+
+. Limited Access to Internal Data::
+  Generic models, trained solely on publicly available data, fail to understand internal airline policies or specific operational protocols, limiting their usefulness for tasks requiring precise and accurate information.
+
+To address these challenges, 404 Airlines has decided to leverage InstructLab’s powerful synthetic data generation and taxonomy-based fine-tuning workflow to adapt a foundational AI model specifically to their internal knowledge and requirements.
+
+By the end of this interactive experience, you’ll have a curated and trained small language model that can assist and aid the 404 Airlines team, with better understanding, accuracy, and cost-efficiency than a generic large language model, with full control over your data and AI journey. You’ll directly experience the process of preparing specialized training data, generating synthetic examples, fine-tuning a foundational model, and finally testing your model within the simulated operational environment of 404 Airlines.

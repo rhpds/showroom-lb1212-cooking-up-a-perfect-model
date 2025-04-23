@@ -1,12 +1,12 @@
 name: modules
-title: Default Title
+title: Cooking up the Perfect Model
 version: master
 nav:
   - modules/ROOT/nav.adoc
 
 asciidoc:
   attributes:
-    lab_name: "I'm the lab_name var"
+    lab_name: "Cooking up the Perfect Model"
     release-version: master
     page-pagination: true
     my_var: "foo"
@@ -14,6 +14,9 @@ asciidoc:
     ssh_user: devops
     ssh_password: devops
     ssh_command: ssh someone@example.com
-    page-links:
+  page-links:
     - url: https://redhat.com
       text: Red Hat
+
+  extensions:
+  - ./content/lib/remote-include-processor.js
