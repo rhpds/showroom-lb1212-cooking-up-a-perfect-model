@@ -7,7 +7,7 @@ Thank you for joining this hands‑on lab focused on *customizing large language
 
 == What you’ll be learning in today’s workshop
 
-Today, you’ll walk through the a sample process of adapting a foundation model to better understand and respond to your unique data—no deep ML background required. By the end of the session, you’ll be able to:
+Today, you’ll walk through the a sample process of adapting a foundation model to better understand and respond to your unique data—no deep AI/ML background required. By the end of the session, you’ll be able to:
 
 * Work with local and private large language models (LLMs)
 * Prepare data for model customization, including Markdown and tabular datasets for fine‑tuning
@@ -39,4 +39,4 @@ Today, we’ll work with InstructLab, a community‑driven, open‑source tool d
 | **Community-Driven UI**        | Optional web interface for skill submission, taxonomy browsing, and run monitoring: https://ui.instructlab.ai[InstructLab UI]
 |===
 
-Red Hat Enterprise Linux AI extends this with SDG 1.5’s agentic pipelines, tighter integration with hardware layers, and enterprise-grade support- so you can scale prototypes into production with confidence. This workshop will show you how to build and refine models using InstructLab—so you can later scale or transition those workflows into an enterprise environment if needed. Let's get started!
+Red Hat Enterprise Linux AI extends this with advanced agentic pipelines, tighter integration with hardware layers, and enterprise-grade support- so you can scale prototypes into production with confidence. This workshop will show you how to build and refine models using InstructLab—so you can later scale or transition those workflows into an enterprise environment if needed. Let's get started!

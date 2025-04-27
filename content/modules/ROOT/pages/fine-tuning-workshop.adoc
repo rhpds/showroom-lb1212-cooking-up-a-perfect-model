@@ -2,61 +2,155 @@
 = Fine‑Tuning & Customizing Model Responses
 :page-description: Full workflow for fine‑tuning with InstructLab
 
-//— Overview
-[[overview]]
-== Overview
-
-Fine‑tuning a large language model involves adapting a pre‑trained model by further training it on new, task‑specific data. This allows the model to produce more relevant, accurate, and context‑aware outputs that align precisely with enterprise‑specific use cases.
-
-InstructLab simplifies this complex process by providing a structured, taxonomy‑guided synthetic data generation (SDG) method. The SDG process leverages a teacher model to generate high‑quality synthetic data based on carefully curated enterprise documents and custom‑prepared seed examples (`qna.yaml`). This data then becomes the training set to fine‑tune foundation models, such as the Mistral 7B Instruct, to address specialized tasks with enhanced precision and context‑awareness.
-
-//— How InstructLab Helps Align Models
-[[alignment]]
-== How InstructLab Helps Align Models
-
-InstructLab addresses critical limitations in general‑purpose foundation models, particularly their inherent lack of domain‑specific expertise and tendency to hallucinate incorrect information.
-
-To tackle these issues, InstructLab uses a multi‑phase training and synthetic data generation strategy that deeply aligns the model with enterprise‑specific knowledge and skills.
+Fine‑tuning a large language model involves adapting a pre‑trained model by further training it on new, task‑specific data. This allows the model to produce more relevant, accurate, and context‑aware outputs that align precisely with enterprise‑specific use cases. Here's where InstructLab comes in- by simplifying this traditionally complex process by providing a structured, synthetic data generation (SDG) method and fine-tuning process, all from a command line interface (CLI). 
 
 image::instructlab.png[InstructLab,100%,100%]
 
+[[alignment]]
+== How InstructLab Helps Align Models
+
+Originally started as a research project from the MIT-Watson lab and IBM Research, InstructLab addresses critical limitations in general‑purpose foundation models, particularly their inherent lack of domain‑specific expertise and tendency to hallucinate incorrect information, without needing full-retraining of the model. But, a large issue for model training is the large amount of data needed to train these _large_ language models as well! 
+
 //— Taxonomy‑Driven Data Curation
 [[taxonomy]]
-== Taxonomy‑Driven Data Curation
+=== Taxonomy‑Driven Data Curation
 
-Effective alignment begins with clearly structured data. InstructLab employs a taxonomy‑driven approach, organizing enterprise‑specific information into a logical, hierarchical folder structure. This taxonomy consists of distinct categories—foundational skills (e.g., math, writing), compositional skills (e.g., extraction from technical manuals), and specialized knowledge areas (e.g., historical texts).
+Effective alignment begins with clearly structured data. InstructLab employs a taxonomy‑driven approach, organizing enterprise‑specific information into a logical, hierarchical folder structure. This taxonomy consists of distinct categories—*foundational skills* (e.g., math, writing), *compositional skills* (e.g., extraction from technical manuals), and specialized *knowledge* areas (e.g., historical texts).
+
+image::instructlab-taxonomy.png[InstructLab,100%,100%]
 
 By structuring data in a clear, hierarchical format and pairing it with precise question‑and‑answer examples (`qna.yaml`), the synthetic data generation process is guided precisely, ensuring the produced training dataset closely mirrors your enterprise’s unique needs.
 
 //— Large‑Scale Synthetic Data Generation
 [[sdg]]
-== Large‑Scale Synthetic Data Generation
+=== Large‑Scale Synthetic Data Generation
 
-To effectively fine‑tune models, you need extensive, high‑quality training data. InstructLab automates this step through its synthetic data generation (SDG) pipeline, significantly expanding your training datasets based on initial Q&A seed examples.
+To effectively fine‑tune models, you need extensive, high‑quality training data. InstructLab uses an automated synthetic data generation strategy that deeply aligns the model with enterprise‑specific knowledge and skills. The synthetic data process leverages a local teacher model to help generate high‑quality synthetic data based on enterprise documents and carefully curated seed examples (in the format of a `qna.yaml` text document). This significantly expanding your training datasets based on initial Q&A seed examples and becomes the training set to fine‑tune foundation models, such as the Mistral or Granite, to address specialized tasks with enhanced precision and context‑awareness.
 
-Leveraging powerful teacher models, this pipeline generates additional, highly relevant synthetic Q&A data automatically, greatly reducing manual labor and accelerating dataset creation.
+// from article
+image::synthetic-data-image.png[InstructLab,100%,100%]
 
 //— Model Training with New Data
 [[model-training]]
-== Model Training with New Data
+=== Model Training with New Data
 
 Once synthetic data is curated and generated, InstructLab utilizes phased, large‑scale alignment tuning—training your model iteratively in multiple stages, first on general knowledge and then refining it with specialized enterprise skills. This structured training approach ensures models not only understand broad concepts but can also perform specific, nuanced tasks effectively.
 
-//— The Value in Enterprise Data
+// from article
+image::training-image.png[InstructLab,100%,100%]
+
 [[enterprise-data-value]]
 == The Value in Enterprise Data
 
-It is estimated that only about 1% of enterprise data is represented in popular large language models. This minimal coverage significantly restricts the models' capability to understand and interact meaningfully within specific organizational contexts.
+It is estimated that only about 1% of enterprise data is represented in popular large language models. This minimal coverage significantly restricts the models' capability to understand and interact meaningfully within specific organizational contexts. For example, at 404 Airlines, we know our internal policies and guidelines, but models are likely to not know or be trained on this information. For example our policies state the following:
 
-Incorporating enterprise data into pre‑trained models through techniques like Retrieval‑Augmented Generation (RAG) or fine‑tuning can significantly improve domain‑specific document analysis, procedural analysis, pattern diagnosis, and more.
+```
+- **Standard Allowance:** Each passenger is permitted one piece of carry-on baggage.
+- **Size Limitations:** Maximum dimensions are 22 inches (length) x 14 inches (width) x 9 inches (height). Items must fit in the overhead bin or under the seat.
+- **Weight Limit:** Total weight must not exceed 15 lbs (6.8 kg).
+```
+
+Now, this is important information that our models should *always* know, and so fine-tuning this information into the model is critical to having an AI assistant which is actually helpful. But, what do language models actually know?
+
+. Let's actually test this out with model that has been pre-downloaded for you, specifically the Merlinite model from Hugging Face, by running the following command in the *uppper* Terminal window.
+
+.Command
+[source,console,role=execute,subs=attributes+]
+----
+ilab model serve
+----
+
+TIP: This command points to the default model in InstructLab's `config.yaml`, but you can download and serve others using `ilab model download` and `ilab model serve -–model-path` as an argument to point to specific models.
+
+Once the model is served and ready, you will see the following output:
+
+.Output
+[source,console,subs=quotes,copy=false]
+----
+INFO 2024-09-10 18:12:09,459 instructlab.model.serve:145: Using model '/home/instruct/.cache/instructlab/models/granite-7b-lab-Q4_K_M.gguf' with -1 gpu-layers and 4096 max context size.
+INFO 2024-09-10 18:12:09,459 instructlab.model.serve:149: Serving model '/home/instruct/.cache/instructlab/models/granite-7b-lab-Q4_K_M.gguf' with llama-cpp
+INFO 2024-09-10 18:12:16,023 instructlab.model.backends.llama_cpp:250: Replacing chat template:
+ {% for message in messages %}
+{% if message['role'] == 'user' %}
+{{ '<|user|>
+' + message['content'] }}
+{% elif message['role'] == 'system' %}
+{{ '<|system|>
+' + message['content'] }}
+{% elif message['role'] == 'assistant' %}
+{{ '<|assistant|>
+' + message['content'] + eos_token }}
+{% endif %}
+{% if loop.last and add_generation_prompt %}
+{{ '<|assistant|>' }}
+{% endif %}
+{% endfor %}
+INFO 2024-09-10 18:12:16,026 instructlab.model.backends.llama_cpp:193: Starting server process, press CTRL+C to shutdown server...
+INFO 2024-09-10 18:12:16,026 instructlab.model.backends.llama_cpp:194: After application startup complete see http://127.0.0.1:8000/docs for API.
+----
+
+Because you are serving the model in one terminal window, we provided a separate terminal window for interactions.
+
+[start=2]
+. In the *bottom* terminal window, you can begin a chat session with the `ilab chat` command:
+
+.Command
+[source,console,role=execute,subs=attributes+]
+----
+ilab model chat
+----
+
+You should see a chat prompt like the example below.
+
+.Output
+[source,console,copy=false]
+----
+╭───────────────────────────────────────────────────────────────────────────╮
+│ Welcome to InstructLab Chat w/ GRANITE-7B-LAB-Q4_K_M.GGUF (type /h for help)                                                                                                                                      
+╰───────────────────────────────────────────────────────────────────────────╯
+>>> 
+----
+
+[start=3]
+. At this point, you can interact with the model by asking it a question. Example:
+
+.Command
+[source,console,role=execute,subs=attributes+]
+----
+As a customer service assistant for 404 Airlines, what are the baggage rules for passengers, and when does check in open?
+----
+
+The answer will almost certainly be incorrect, as shown in the following example output:
+
+.Output
+[source,console]
+----
+test output
+----
+
+NOTE: LLMs by nature are non-deterministic. This means that even with the same prompt input, the model will produce varying responses. So, your results may vary.
+
+Wow, that was both pretty awesome and sad at the same time! Kudos for it generating a response that appears to be very accurate and it was very confident in doing so. _However, it is incorrect_. The policies that were given look detailed but are wrong, and this can be misleading for both our agents and customers at 404 Airlines. These errors are often referred to as “hallucinations” in the LLM space.
+
+Model alignment and fine-tuning (like you’re about to do) is one of the ways to improve a model’s answers and avoid hallucinations. In this workshop, we are going to focus on adding a new knowledge to the model so that it can be helpful for the team of customer service agents. Let’s get to work!
+
+[start=3]
+. When you are done exploring the model, **exit the chat** by issuing the exit command within in the chat session:
+
+.Command
+[source,console,role=execute,subs=attributes+]
+----
+exit
+----
 
 //— Curating the InstructLab Taxonomy & Best Practices
 [[best-practices]]
 == Curating the InstructLab Taxonomy & Best Practices
 
-Effective taxonomy curation is foundational to achieving optimal results when using InstructLab. The taxonomy serves as the backbone for data organization, impacting the synthetic data generation pipeline and subsequent fine‑tuning processes.
+Let's apply what we've learned in order to curate initial seed training data to fine-tune a model for 404 Airlines! Effective taxonomy curation is foundational to achieving optimal results when using InstructLab. As mentioned before, the taxonomy serves as the model's data organization and source of truth, impacting the synthetic data generation pipeline and subsequent fine‑tuning processes. When carefully curating a Question & Answer (`qna.yaml`) file for our taxonomy, you'll typically go through a few steps and should know these guidelines:
 
-* **Domain Identification:** Define your domain (e.g., cybersecurity) and keep taxonomy content within scope.
+// turn this into a table
+* **Domain Identification:** Define your domain and keep taxonomy content within scope, e.g., airline policy (_knowledge_) or customer service tone & procedures (_skill_)
 * **Seed Data Preparation (`qna.yaml`):** Use explicit context snippets verbatim from source documents, paired with diverse Q&A examples.
 * **Data Diversity:** Reflect different content types—definitions, procedures, tables—to generate robust synthetic data.
 * **Token Management:** Keep context + Q&A near ~750 tokens (~550 words) to avoid input limits.
@@ -65,7 +159,7 @@ Effective taxonomy curation is foundational to achieving optimal results when us
 [[airline-seed-data]]
 == Curating Our Unique Airline Seed Data with InstructLab
 
-In this workshop, we'll fine‑tune a model specifically for **404 Airlines**. Domains include:
+In this workshop, we'll fine‑tune a model specifically for 404 Airlines to cover the following domain and topic areas:
 
 |===
 | Operational Procedures    | Customer Service Guidelines      | Safety and Compliance
@@ -75,35 +169,96 @@ In this workshop, we'll fine‑tune a model specifically for **404 Airlines**. 
 | Emergency response guides  | Cancellation & refund procedures | Incident reporting processes
 |===
 
+Thus, we'll seperate each topic into a unique `qna.yaml` to cover the domain and teach the model specific intuition/knowledge about the topic areas for it to respond better in situations of check-in, customer service policy, and compliance. Let's take a look at the basic components that these files require as seed data for the model curation.
+
 //— Preparing Seed Data
 [[preparing-seed-data]]
-== Preparing Seed Data (`qna.yaml`) for 404 Airlines
+== Preparing Seed Data (`qna.yaml`) for Model Tuning
 
-Each `qna.yaml` entry includes:
+As a requirement, each seed data entry file includes question & answer pairs that are used to guide the model's intuition, and be used for more synthetic data generation to expand our model training dataset. Let's take a look a what an example looks like:
 
 [source,yaml]
 ----
-- context: |
-    Passengers traveling in economy class are permitted one personal item and one carry-on bag. Carry-on dimensions must not exceed 22 x 14 x 9 inches, and the item must weigh no more than 25 pounds.
-  questions_and_answers:
-    - question: |
-        What are the maximum allowed dimensions for a carry-on bag in economy class on 404 Airlines?
-      answer: |
-        The maximum dimensions for a carry-on bag in economy class on 404 Airlines are 22 x 14 x 9 inches.
-    - question: |
-        How many items can economy passengers bring on board on 404 Airlines flights?
-      answer: |
-        Economy passengers can bring one personal item and one carry-on bag on board 404 Airlines flights.
-    - question: |
-        What is the weight limit for carry-on luggage for economy passengers?
-      answer: |
-        The weight limit for carry-on luggage for economy passengers is 25 pounds.
+version: 3
+domain: astronomy
+created_by: juliadenham
+seed_examples:
+  - context: |
+      **Phoenix** is a minor [constellation](constellation "wikilink") in the
+      [southern sky](southern_sky "wikilink"). Named after the mythical
+      [phoenix](Phoenix_(mythology) "wikilink"), it was first depicted on a
+      celestial atlas by [Johann Bayer](Johann_Bayer "wikilink") in his 1603
+      *[Uranometria](Uranometria "wikilink")*. The French explorer and
+      astronomer [Nicolas Louis de
+      Lacaille](Nicolas_Louis_de_Lacaille "wikilink") charted the brighter
+      stars and gave their [Bayer designations](Bayer_designation "wikilink")
+      in 1756. The constellation stretches from roughly −39 degrees to −57 degrees
+      [declination](declination "wikilink"), and from 23.5h to 2.5h of [right
+      ascension](right_ascension "wikilink"). The constellations Phoenix,
+      [Grus](Grus_(constellation) "wikilink"),
+      [Pavo](Pavo_(constellation) "wikilink") and [Tucana](Tucana "wikilink"),
+      are known as the Southern Birds.
+    questions_and_answers:
+      - question: |
+          What is the Phoenix constellation?
+        answer: |
+          Phoenix is a minor constellation in the southern sky.
+      - question: |
+          Who charted the Phoenix constellation?
+        answer: |
+          The French explorer and astronomer Nicolas Louis de Lacaille charted its brighter stars in 1756.
+      - question: |
+          When was Phoenix first depicted on a celestial atlas?
+        answer: |
+          It first appeared in Johann Bayer’s 1603 *Uranometria*.
+      - question: |
+          What are the declination and right ascension ranges of Phoenix?
+        answer: |
+          It spans roughly −39° to −57° declination and 23.5h to 2.5h right ascension.
+      - question: |
+          Which nearby constellations form the “Southern Birds” along with Phoenix?
+        answer: |
+          Grus, Pavo, and Tucana.
+document_outline: |
+  Information about the Phoenix Constellation including its discovery, boundaries, and relation to nearby constellations.
+document:
+  repo: https://github.com/juliadenham/Summit_knowledge
+  commit: 0a1f2672b9b90582e6115333e3ed62fd628f1c0f
+  patterns:
+    - phoenix_constellation.md
 ----
+
+. `**version**`: The version of the qna.yaml file, this is the format of the file used for SDG. The value must be the number 3 for this workshop.
+. `**created_by**`: Your GitHub username.
+. `**domain**`: Specify the category of the knowledge.
+. `**seed_examples**`: A collection of key/value entries.
+.. `**context**`: A chunk of information from the knowledge document. Each qna.yaml needs five context blocks and has a maximum word count of 500 words.
+.. `**questions_and_answers**`: The parameter that holds your questions and answers
+... `**question**`: Specify a question for the model. Each qna.yaml file needs at least three question and answer pairs per context chunk with a maximum word count of 250 words.
+... `**answer**`: Specify the desired answer from the model. Each qna.yaml file needs at least three question and answer pairs per context chunk with a maximum word count of 250 words.
+. `**document_outline**`: Describe an overview of the document your submitting.
+. `**document**`: The source of your knowledge contribution.
+.. `**repo**`: The URL to your repository that holds your knowledge markdown files.
+.. `**commit**`: The SHA of the commit in your repository with your knowledge markdown files.
+.. `**patterns**`: A list of glob patterns specifying the markdown files in your repository. Any glob pattern that starts with *, such as *.md, must be quoted due to YAML rules. For example, *.md.
+
+IMPORTANT: To be concise, here we're abbreviating the `questions_and_answers` section to only show a few examples. In practice, you'll need to provide five context blocks, each with at least three question and answer pairs. This ensures the model has a rich set of examples to learn from.
+
+While adding to the taxonomy, it's also important to include sources to the contribution you are providing. This is important for providing transparency and traceability to the model, and as an example, we'd typically include an `attribution.txt` file in the same directory as the `qna.yaml` file. This file should include the following:
+
+[source,yaml]
+----
+Title of work: Phoenix (constellation)
+Link to work: https://en.wikipedia.org/wiki/Phoenix_(constellation)
+Revision: https://en.wikipedia.org/w/index.php?title=Phoenix_(constellation)&oldid=1237187773
+License of the work: CC-BY-SA-4.0
+Creator names: Wikipedia Authors
+----
+
 
 //— Generating Synthetic Data
 [[generate-synthetic-data]]
 == Let’s Generate Synthetic Data!
-
 
 Now that you've curated your seed examples (`qna.yaml` files), it's time to expand them into a rich training dataset using InstructLab’s Synthetic Data Generation (SDG) pipeline.
 

@@ -5,16 +5,75 @@
 
 In this workshop, you'll have access to a comprehensive and pre-configured interactive environment, ready for you to begin working. The environment is designed to streamline each step of the InstructLab model fine-tuning process. You’ll see three primary working sections accessible through tabs in your workshop environment interface to the right:
 
-. *Terminal (venv):* You’ll have two vertically‑stacked terminal windows, both set up with activated Python virtual environments (`venv`). This environment includes all necessary dependencies and tools, such as InstructLab, already installed and configured.
+== Terminal 
+
+You’ll have two vertically‑stacked terminal windows, both set up with activated Python virtual environments (using `venv`). This environment includes all necessary dependencies and tools, such as InstructLab, already installed and configured.
+
+image::terminal-ui.png[Terminal Dashboard]
+
   .. *Upper Terminal:* You will use this for running & serving models with InstructLab.
   .. *Lower Terminal:* Here you’ll run commands to validate training data, kick off your synthetic data generation pipeline, and initiate fine‑tuning tasks.
 
-. *Visual Studio Code (VSCode):* VSCode is pre‑loaded with a template folder containing an InstructLab taxonomy structure for you to add curated seed data for model training.
-  .. You will find structured directories for your `qna.yaml` seed data, reflecting best practices in taxonomy‑driven data curation.
+Let's go ahead and make sure everything's working by checking out InstructLab's command line interface using the following command in the *upper* terminal:
+
+.Command
+[source,console,role=execute,subs=attributes+]
+----
+ilab
+----
+
+If everything has been installed correctly, you should see the following output:
+
+.Output
+[source,console,copy=false]
+----
+Usage: ilab [OPTIONS] COMMAND [ARGS]...
+
+
+  CLI for interacting with InstructLab.
+
+
+  If this is your first time running ilab, it's best to start with `ilab config init`
+  to create the environment.
+
+
+Options:
+  --config PATH  Path to a configuration file.  [default: /home/instruct/.config/instructlab/config.yaml]
+  -v, --verbose  Enable debug logging (repeat for even more verbosity)
+  --version      Show the version and exit.
+  --help         Show this message and exit.
+
+Commands:
+  config    Command Group for Interacting with...
+  data      Command Group for Interacting with...
+  model     Command Group for Interacting with...
+  system    Command group for all system-related...
+  taxonomy  Command Group for Interacting with...
+
+Aliases:
+  chat      model chat
+  generate  data generate
+  serve     model serve
+  train     model train
+----
+
+== Visual Studio Code (VSCode)
+
+Your integrated developer environment, VSCode, is pre‑loaded with a template folder containing an InstructLab taxonomy structure for you to add curated seed data for model training.
+
+image::vscode.png[Terminal Dashboard]
+
+  .. You will find structured directories to enter your `qna.yaml` (Question & Answer based) seed data, reflecting best practices in taxonomy‑driven data curation.
   .. VSCode’s integrated tools help you efficiently edit and validate Markdown and YAML content as you prepare your datasets.
 
-. *404 Airlines Demo Application:* This tab displays a mock production environment for 404 Airlines.
+
+== 404 Airlines Demo Application
+
+This tab displays a mock production environment for 404 Airlines, written in Quarkus and powered by LangChain4J to later integrate our model capabilities into the application.
+
+image::parasol-dashboard.png[Terminal Dashboard]
+
   .. Here you’ll test and visualize interactions with the customized AI model, simulating customer service queries, airline policy questions, and operational guidance.
   .. This allows for real‑time evaluation of your fine‑tuned model’s practical effectiveness, helping you clearly see the impact and value added by domain‑specific fine‑tuning.
 
-Throughout the workshop, you'll navigate seamlessly between these environments, following step‑by‑step instructions provided in this tutorial. For example, you may run commands in the *Upper Terminal*, add content to *VSCode*, and perform other operations as guided.
+Throughout the workshop, you'll navigate seamlessly between these environments, following step‑by‑step instructions provided in this tutorial. For example, you may run commands in the *Upper Terminal*, add content to *VSCode*, and perform other operations as guided. Now, let's learn how to customize models for our specific use case.
