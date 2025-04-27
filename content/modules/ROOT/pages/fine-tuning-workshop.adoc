@@ -117,7 +117,7 @@ You should see a chat prompt like the example below.
 .Command
 [source,console,role=execute,subs=attributes+]
 ----
-As a customer service assistant for 404 Airlines, what are the baggage rules for passengers, and when does check in open?
+What are the maximum dimensions (length, width, and height) for carry-on baggage on 404 Airlines?
 ----
 
 The answer will almost certainly be incorrect, as shown in the following example output:
@@ -125,7 +125,7 @@ The answer will almost certainly be incorrect, as shown in the following example
 .Output
 [source,console]
 ----
-test output
+The maximum dimensions for carry-on baggage on 404 Airlines are 55 cm × 38 cm × 25 cm (approximately 21.6 in × 14.9 in × 9.8 in) in length, width, and height, respectively. This information is accurate as of April 2023 and may be subject to change, so it’s always a good idea to double-check with the airline directly for the most up-to-date information.
 ----
 
 NOTE: LLMs by nature are non-deterministic. This means that even with the same prompt input, the model will produce varying responses. So, your results may vary.
