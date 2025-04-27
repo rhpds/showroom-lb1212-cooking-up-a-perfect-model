@@ -3,19 +3,23 @@
 :page-nav-title: Workshop Intro
 :page-description: Hands‑on lab on customizing LLMs using InstructLab
 
-Thank you for joining this hands‑on lab focused on customizing large language models (LLMs) using InstructLab! InstructLab is an open‑source project licensed under Apache 2.0, leveraging the same link:https://arxiv.org/abs/2403.01081[Large‑scale Alignment for chatBots (LAB)] methodology utilized by Red Hat’s enterprise‑grade AI solutions. Today, we’ll explore how to effectively apply InstructLab’s powerful tools—including Retrieval‑Augmented Generation (RAG), alignment tuning, and synthetic data generation (SDG)—to cook up the perfect model!
+Thank you for joining this hands‑on lab focused on customizing large language models (LLMs) using https://instructlab.ai[InstructLab]! InstructLab is an open‑source project licensed under Apache 2.0, leveraging the same link:https://arxiv.org/abs/2403.01081[Large‑scale Alignment for chatBots (LAB)] methodology utilized by Red Hat’s enterprise‑grade AI solutions. Today, we’ll explore how to effectively apply InstructLab’s powerful tools—including Retrieval‑Augmented Generation (RAG), alignment tuning, and synthetic data generation (SDG)—to cook up the perfect model!
+
+
 
 == What you’ll be learning in today’s workshop
 
-Today, you’ll walk through the full process of adapting a foundation model to better understand and respond to your unique data—no deep ML background required.
-
-By the end of the session, you’ll be able to:
+Today, you’ll walk through the full process of adapting a foundation model to better understand and respond to your unique data—no deep ML background required. By the end of the session, you’ll be able to:
 
 * Prepare Markdown and qna.yaml datasets for fine‑tuning
 * Generate high‑quality synthetic data using InstructLab’s automated SDG pipeline
 * Fine‑tune foundation models such as Mistral & Granite
 * Evaluate your model’s responses and validate their alignment with your enterprise data
 * Serve and use your customized AI model locally on consumer‑grade hardware
+
+What's your challenge today? You'll be customizing a foundation model to help out 404 Airlines with their customer service. 404 Airlines is a fictional airline that has a lot of customer service inquiries. They want to build a model that can help them answer questions about their policies, flight status, and other customer service inquiries- by integrating their internal data into the model.
+
+image::instructlab-graphic.png[InstructLab graphic, width=600, align="center"]
 
 == Model Customization with InstructLab and Red Hat Enterprise Linux AI
 

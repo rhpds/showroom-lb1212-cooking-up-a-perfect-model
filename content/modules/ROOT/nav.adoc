@@ -1,5 +1,6 @@
-** xref:environment.adoc[Working Environment]
-** xref:use-case.adoc[Workshop Use Case]
+** xref:index.adoc[Welcome to the Workshop]
+* xref:use-case.adoc[Workshop Use Case]
+* xref:environment.adoc[Working Environment]
 * xref:foundation-models.adoc[How to work with a Foundation Model]
 ** xref:fine-tuning-workshop.adoc[Fine‑Tuning & Customizing Model Responses]
 * xref:fine-tuning-workshop.adoc#overview[Overview]
