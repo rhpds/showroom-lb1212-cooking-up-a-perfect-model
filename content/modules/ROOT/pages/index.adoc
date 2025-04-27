@@ -3,35 +3,40 @@
 :page-nav-title: Workshop Intro
 :page-description: Hands‑on lab on customizing LLMs using InstructLab
 
-Thank you for joining this hands‑on lab focused on customizing large language models (LLMs) using https://instructlab.ai[InstructLab]! InstructLab is an open‑source project licensed under Apache 2.0, leveraging the same link:https://arxiv.org/abs/2403.01081[Large‑scale Alignment for chatBots (LAB)] methodology utilized by Red Hat’s enterprise‑grade AI solutions. Today, we’ll explore how to effectively apply InstructLab’s powerful tools—including Retrieval‑Augmented Generation (RAG), alignment tuning, and synthetic data generation (SDG)—to cook up the perfect model!
-
-
+Thank you for joining this hands‑on lab focused on *customizing large language models (LLMs) using https://instructlab.ai[InstructLab]*! InstructLab is an open‑source project licensed under Apache 2.0, leveraging the same link:https://arxiv.org/abs/2403.01081[Large‑scale Alignment for chatBots (LAB)] methodology utilized by Red Hat’s enterprise‑grade AI solutions. Today, we’ll explore how to effectively apply InstructLab’s powerful tools—including Retrieval‑Augmented Generation (RAG), alignment tuning, and synthetic data generation (SDG)—to cook up the perfect model!
 
 == What you’ll be learning in today’s workshop
 
-Today, you’ll walk through the full process of adapting a foundation model to better understand and respond to your unique data—no deep ML background required. By the end of the session, you’ll be able to:
+Today, you’ll walk through the a sample process of adapting a foundation model to better understand and respond to your unique data—no deep ML background required. By the end of the session, you’ll be able to:
 
-* Prepare Markdown and qna.yaml datasets for fine‑tuning
+* Work with local and private large language models (LLMs)
+* Prepare data for model customization, including Markdown and tabular datasets for fine‑tuning
 * Generate high‑quality synthetic data using InstructLab’s automated SDG pipeline
-* Fine‑tune foundation models such as Mistral & Granite
+* Fine‑tune open source foundation models such as Mistral & Granite using LoRA and QLoRA adapters
 * Evaluate your model’s responses and validate their alignment with your enterprise data
 * Serve and use your customized AI model locally on consumer‑grade hardware
+* Integrate your customized model into an application using LangChain4J & Quarkus
 
 What's your challenge today? You'll be customizing a foundation model to help out 404 Airlines with their customer service. 404 Airlines is a fictional airline that has a lot of customer service inquiries. They want to build a model that can help them answer questions about their policies, flight status, and other customer service inquiries- by integrating their internal data into the model.
 
-image::instructlab-graphic.png[InstructLab graphic, width=600, align="center"]
+image::instructlab-flow.png[InstructLab graphic]
 
 == Model Customization with InstructLab and Red Hat Enterprise Linux AI
 
-Today, we’ll work with InstructLab, a community‑driven, open‑source tool designed for local experimentation and customization. InstructLab leverages the original LAB methodology (SDG 1.0) to help you build precise, instruction‑following models through a streamlined synthetic data generation and fine‑tuning workflow.
+Today, we’ll work with InstructLab, a community‑driven, open‑source tool designed for local experimentation and customization. InstructLab leverages the original LAB methodology to help you build precise, instruction‑following models through a streamlined synthetic data generation and fine‑tuning workflow. This allows you to customize and align a model to your specific needs, even if you don’t have a lot of data or resources.
 
-InstructLab highlights:
+=== InstructLab Features
 
-* Uses the SDG 1.0 pipeline with simple flows for cleaning and aligning data  
-* Supports quantized models and *consumer‑grade/laptop hardware* +  
-  Fine‑tunes using *QLoRA* or *LoRA* on top of models like Mistral 7B  
-* Great for experimentation and learning on BYO setups (CPU/GPU)
+|===
+| Feature                       | Description & Link
 
-In contrast, Red Hat Enterprise Linux AI uses the same core methodology but with SDG 1.5, which introduces agentic flows, production‑grade fine‑tuning on full‑resolution models, and out‑of‑the‑box hardware optimizations for enterprise scale.
+| **ilab CLI**                  | Download, serve, and align models from a unified command-line interface. Installation & usage on your own system at the https://github.com/instructlab/instructlab#-getting-started[Getting Started]
 
-This workshop will show you how to build and refine models using InstructLab—so you can later scale or transition those workflows into an enterprise environment if needed.
+| **Taxonomy-based Contributing Structure** | Define and organize input/output “recipes” in a community-maintained taxonomy to pinpoint capability gaps. Browse or contribute at https://github.com/instructlab/taxonomy[InstructLab Taxonomy]
+
+| **Synthetic Data Generation Pipeline**    | Generate diverse synthetic data from your taxonomy via a single CLI command. See details in the https://github.com/instructlab/sdg[SDG Repository]
+
+| **Community-Driven UI**        | Optional web interface for skill submission, taxonomy browsing, and run monitoring: https://ui.instructlab.ai[InstructLab UI]
+|===
+
+Red Hat Enterprise Linux AI extends this with SDG 1.5’s agentic pipelines, tighter integration with hardware layers, and enterprise-grade support- so you can scale prototypes into production with confidence. This workshop will show you how to build and refine models using InstructLab—so you can later scale or transition those workflows into an enterprise environment if needed. Let's get started!
