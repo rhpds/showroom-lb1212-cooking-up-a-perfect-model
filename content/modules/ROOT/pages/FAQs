@@ -1,0 +1,37 @@
+InstructLab FAQ
+
+Q: Can InstructLab-generated models handle real-time dynamic data?
+A: Yes, when integrated with retrieval-augmented generation (RAG), they can effectively handle dynamic datasets.
+
+Q: What differentiates SDG 1.0 from SDG 1.5?
+A: SDG 1.5 introduces advanced, agentic flows for cleaning and generating high-quality synthetic data, suitable for enterprise-grade deployment.
+
+Q: Does the answer in the qna.yaml need to come from the context section?
+A: Yes. If the context section doesn’t include the answer, the model may hallucinate. Always ensure the answer is grounded in the provided context.
+
+Q: Can I fine-tune a model using more than 100,000 SDG samples?
+A: No. The recommended maximum for SDG samples is 100,000. An additional ~300,000 skills samples are automatically included during fine-tuning.
+
+Q: Does fine-tuning on a Laptop/Desktop use the same method as server training?
+A: No. Laptop/Desktop fine-tuning uses LoRA or QLoRA, which adapt existing knowledge without introducing truly new information.
+
+Q: Can I fine-tune a quantized model effectively?
+A: Yes, but it comes with risks. Quantized models have reduced precision and are more prone to overfitting and forgetting prior knowledge.
+
+Q: Why doesn’t the model give back the exact answers I provided?
+A: LLMs don’t memorize—they learn patterns. The provided Q&A helps guide what kinds of questions to generate, not to repeat verbatim.
+
+Q: Why does my SDG dataset contain hallucinations or poor-quality Q&A?
+A: This can happen if:
+
+The answer in qna.yaml isn’t grounded in the context section
+
+You’re using the simpler Self-Instruct flow on Laptop/Desktop
+
+You’re not using the LAB-based validation pipelines in RHEL AI
+
+Q: How many SDG samples should I generate?
+A: Fewer than 100,000. These are combined with ~300,000 additional skills samples for training.
+
+Q: Why do I need a high-end GPU for fine-tuning 2B, 3B, 7B, or 8B models?
+A: Full-resolution models require significant memory—28GB just for weights, 40–60GB for inference, and 80–120GB+ for training.
