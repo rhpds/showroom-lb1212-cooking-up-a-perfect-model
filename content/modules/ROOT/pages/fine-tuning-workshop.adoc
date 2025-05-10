@@ -416,7 +416,7 @@ INFO 2024-10-20 17:24:34,495 instructlab.model.backends.llama_cpp:190: After app
 ----
 
 [start=2]
-. In the *bottom* terminal window, let's can begin a chat session with the `ilab chat` command:
+. In the *bottom* terminal window, let's can begin a chat session with the `ilab model chat` command:
 
 .Command
 [source,console,role=execute,subs=attributes+]
@@ -425,8 +425,6 @@ ilab model chat
 ----
 
 You should see a chat prompt like the example below.
-
-// fix this model name
 
 .Output
 [source,console,copy=false]
@@ -449,8 +447,6 @@ What are the maximum dimensions (length, width, and height) for carry-on baggage
 ----
 
 You should see the model respond with an answer grounded on our seed data, as shown in the example output below:
-
-// fix this output
 
 .Output
 [source,console]
