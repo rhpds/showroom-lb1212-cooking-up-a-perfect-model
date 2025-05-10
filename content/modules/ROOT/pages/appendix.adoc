@@ -1,6 +1,8 @@
 // modules/ROOT/pages/appendix.adoc
 = Appendix
 :page-description: FAQs and additional notes
+:sectnums:
+:experimental:
 
 [[faqs]]
 == FAQs

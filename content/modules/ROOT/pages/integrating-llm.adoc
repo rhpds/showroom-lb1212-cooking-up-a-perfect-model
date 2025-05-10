@@ -1,6 +1,8 @@
 // modules/ROOT/pages/integrating-llm.adoc
 = Integrating the LLM into your application
 :page-description: How to serve and test your fine‑tuned model in your app
+:sectnums:
+:experimental:
 
 [[serve-new-model]]
 == Serve new model

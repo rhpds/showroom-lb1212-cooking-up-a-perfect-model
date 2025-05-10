@@ -1,4 +1,7 @@
 // modules/ROOT/pages/fine-tuning-workshop.adoc
+:sectnums:
+:experimental:
+
 = Fine‑Tuning & Customizing Model Responses
 :page-description: Full workflow for fine‑tuning with InstructLab
 
@@ -262,7 +265,7 @@ Creator names: Wikipedia Authors
 Now that we've seen an example of how to format our seed data through question and answer pairs, let's add our own knowledge to the taxonomy. We've prepared a few `qna.yaml` files for you to use as examples, but you'll learn  how to prepare this custom model taxonomy for 404 Airlines.
 
 [start=1]
-. Head over to the *Code Editor* panel, where you can find the `/taxonomy` repository pre-cloned for you.
+. Head over to the *Developer Environment* panel, where you can find the `taxonomy` repository pre-cloned for you.
 
 image::taxonomy-repo.png[InstructLab,100%,100%]
 
@@ -284,11 +287,11 @@ done
 ----
 
 [start=3]
-. Fantastic! You can head back over to the *Code Editor* panel and see our new `qna.yaml` files have been copied into their respective folders. Let's take some time to explore the contents of this seed data and learn how it'll impact our custom model.
+. Fantastic! You can head back over to the *Developer Environment* panel and see our new `qna.yaml` files have been copied into their respective folders. Let's take some time to explore the contents of this seed data and learn how it'll impact our custom model.
 
 image::seed-data.png[InstructLab,100%,100%]
 
-TIP: In addition to just providing context and question/answer pairs, you can also see the `document_outline` and `document` section of our `qna.yaml` file. This is how we ground our synthetic data generation to additional context and information, providing diversity and edge cases to the dataset we'll be generating.
+TIP: In addition to just providing context and question/answer pairs, you can also see the `document_outline` and `document` section of our `qna.yaml` file. This is how we ground our synthetic data generation to additional context and information (for example, in this 404-airlines-knowledge repository), providing diversity and edge cases to the dataset we'll be generating.
 
 [start=4]
 . InstructLab also allows you to validate your taxonomy files before generating synthetic data. You can accomplish this by using the `ilab taxonomy diff` command as shown below, in either *Terminal*:
@@ -301,8 +304,10 @@ ilab taxonomy diff
 .You should see the following output:
 [source,sh]
 ----
-knowledge/parasol/claims/qna.yaml
-Taxonomy in /taxonomy/ is valid :)
+knowledge/operations/operational‑procedure/qna.yaml
+knowledge/operations/check‑in/qna.yaml
+knowledge/operations/baggage/qna.yaml
+Taxonomy in /home/developer/.local/share/instructlab/taxonomy is valid :)
 ----
 
 //— Generating Synthetic Data
@@ -344,7 +349,7 @@ This will take several minutes to complete. Once the process completes and we ha
 
 TIP: If you are curious to view the data generated, the SDG process creates a jsonl file located in the `/home/instruct/.local/share/instructlab/datasets` directory named *knowledge_train_msgs[TIMESTAMP].jsonl* .JSONL files consist of multiple JSON objects, each on its own line.
 
-Feel free to explore this in the *Code Editor* panel, where you'll be able to see the `datasets` folder.
+Feel free to explore this in the *Developer Environment* panel, where you'll be able to see the `datasets` folder.
 
 NOTE: Using a scale factor of 5 is generally not enough synthetic data to effectively impact the knowledge or skill of a model. However, due to time constraints of this workshop, the goal is to simply show you how this works using real commands. You would typically want to use a scale factor of 30 which is the default value to train the model effectively.
 
@@ -379,7 +384,7 @@ Now it’s time to interact with the model and see what it learned As mentioned,
 
 [source,console,role=execute,subs=attributes+]
 ----
-ilab model serve --model-path /home/instruct/files/summit-connect-merlinite-lab-Q4.gguf
+ilab model serve --model-path /home/developer/.cache/instructlab/models/404-airlines-qa.gguf
 ----
 +
 
@@ -388,8 +393,8 @@ It may take some seconds to start, but you should see the following which should
 
 [source,console]
 ----
-INFO 2024-10-20 17:24:33,497 instructlab.model.serve:136: Using model '/home/instruct/summit-connect-merlinite-lab-Q4.gguf' with -1 gpu-layers and 4096 max context size.
-INFO 2024-10-20 17:24:33,497 instructlab.model.serve:140: Serving model '/home/instruct/summit-connect-merlinite-lab-Q4.gguf' with llama-cpp
+INFO 2024-10-20 17:24:33,497 instructlab.model.serve:136: Using model '/home/developer/.cache/instructlab/models/404-airlines-qa.gguf' with -1 gpu-layers and 4096 max context size.
+INFO 2024-10-20 17:24:33,497 instructlab.model.serve:140: Serving model '/home/developer/.cache/instructlab/models/404-airlines-qa.gguf' with llama-cpp
 INFO 2024-10-20 17:24:34,492 instructlab.model.backends.llama_cpp:232: Replacing chat template:
  {% for message in messages %}
 {% if message['role'] == 'user' %}
@@ -427,7 +432,7 @@ You should see a chat prompt like the example below.
 [source,console,copy=false]
 ----
 ╭───────────────────────────────────────────────────────────────────────────╮
-│ Welcome to InstructLab Chat w/ 404-AIRLINES-7B-LAB-Q4_K_M.GGUF (type /h for help)                                                                                                                                      
+│ Welcome to InstructLab Chat w/ 404-AIRLINES-QA.GGUF (type /h for help)                                                                                                                                      
 ╰───────────────────────────────────────────────────────────────────────────╯
 >>> 
 ----
@@ -443,13 +448,12 @@ How does 404 Airlines handle refunds for weather-related cancellations?
 What are the maximum dimensions (length, width, and height) for carry-on baggage on 404 Airlines?
 ----
 
-
-You should see the model respond with a more accurate answer, as shown in the example output below:
+You should see the model respond with an answer grounded on our seed data, as shown in the example output below:
 
 // fix this output
 
 .Output
 [source,console]
 ----
-The maximum dimensions for carry-on baggage on 404 Airlines are 55 cm × 38 cm × 25 cm (approximately 21.6 in × 14.9 in × 9.8 in) in length, width, and height, respectively. This information is accurate as of April 2023 and may be subject to change, so it’s always a good idea to double-check with the airline directly for the most up-to-date information.
+The maximum dimensions allowed for carry‑on baggage are 22 inches (height) × 14 inches (width) × 9 inches (depth). The total weight of the item must not exceed 30 pounds.
 ----

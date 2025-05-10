@@ -2,6 +2,8 @@
 = Welcome to the workshop!
 :page-nav-title: Workshop Intro
 :page-description: Hands‑on lab on customizing LLMs using InstructLab
+:sectnums:
+:experimental:
 
 Thank you for joining this hands‑on lab focused on *customizing large language models (LLMs) using https://instructlab.ai[InstructLab]*! InstructLab is an open‑source project licensed under Apache 2.0, leveraging the same link:https://arxiv.org/abs/2403.01081[Large‑scale Alignment for chatBots (LAB)] methodology utilized by Red Hat’s enterprise‑grade AI solutions. Today, we’ll explore how to effectively apply InstructLab’s powerful tools—including Retrieval‑Augmented Generation (RAG), alignment tuning, and synthetic data generation (SDG)—to cook up the perfect model!
 

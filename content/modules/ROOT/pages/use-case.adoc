@@ -1,4 +1,6 @@
 // modules/ROOT/pages/use-case.adoc
+:sectnums:
+:experimental:
 
 = Understanding the workshop use case
 :page-nav-title: Workshop Use Case

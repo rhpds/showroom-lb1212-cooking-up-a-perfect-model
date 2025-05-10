@@ -1,3 +1,6 @@
+:sectnums:
+:experimental:
+
 InstructLab FAQ
 
 Q: Can InstructLab-generated models handle real-time dynamic data?

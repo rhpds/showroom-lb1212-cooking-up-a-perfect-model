@@ -2,6 +2,8 @@
 = Let’s learn about the working environment
 :page-nav-title: Working Environment
 :page-description: Overview of the interactive workshop environment
+:sectnums:
+:experimental:
 
 In this workshop, you'll have access to a comprehensive and pre-configured interactive environment, ready for you to begin working. The environment is designed to streamline each step of the InstructLab model fine-tuning process. You’ll see three primary working sections accessible through tabs in your workshop environment interface to the right:
 
