@@ -255,94 +255,201 @@ License of the work: CC-BY-SA-4.0
 Creator names: Wikipedia Authors
 ----
 
+//— Adding to the Taxonomy
+[[adding-to-the-taxonomy]]
+== Adding to the Taxonomy
+
+Now that we've seen an example of how to format our seed data through question and answer pairs, let's add our own knowledge to the taxonomy. We've prepared a few `qna.yaml` files for you to use as examples, but you'll learn  how to prepare this custom model taxonomy for 404 Airlines.
+
+[start=1]
+. Head over to the *Code Editor* panel, where you can find the `/taxonomy` repository pre-cloned for you.
+
+image::taxonomy-repo.png[InstructLab,100%,100%]
+
+TIP: You may be wondering why the taxonomy already contains folders! This is a template structure that stems from the upstream InstructLab project repository, but in the future you may choose to begin with a blank slate. The taxonomy structure is designed to be flexible, allowing you to add or remove folders as needed to address model capabilities.
+
+[start=2]
+. Instead of manually copying and pasting the `qna.yaml` files, we're going to a command to both create new subject matter folders and copy the files into them. Let's return to either *Terminal*, and run the following command:
+
+.Command
+[source,console,role=execute,subs=attributes+]
+----
+BASE="$HOME/.local/share/instructlab/taxonomy/knowledge/operations"
+mkdir -p "$BASE"/{baggage,check-in,operational-procedure} && \
+for d in baggage check-in operational-procedure; do \
+  curl -sSfL \
+    "https://raw.githubusercontent.com/rhai-code/404-airlines-taxonomy/main/knowledge/operations/$d/qna.yaml" \
+    -o "$BASE/$d/qna.yaml"; \
+done
+----
+
+[start=3]
+. Fantastic! You can head back over to the *Code Editor* panel and see our new `qna.yaml` files have been copied into their respective folders. Let's take some time to explore the contents of this seed data and learn how it'll impact our custom model.
+
+image::seed-data.png[InstructLab,100%,100%]
+
+TIP: In addition to just providing context and question/answer pairs, you can also see the `document_outline` and `document` section of our `qna.yaml` file. This is how we ground our synthetic data generation to additional context and information, providing diversity and edge cases to the dataset we'll be generating.
+
+[start=4]
+. InstructLab also allows you to validate your taxonomy files before generating synthetic data. You can accomplish this by using the `ilab taxonomy diff` command as shown below, in either *Terminal*:
+
+[source,sh,role=execute,subs=attributes+]
+----
+ilab taxonomy diff
+----
+
+.You should see the following output:
+[source,sh]
+----
+knowledge/parasol/claims/qna.yaml
+Taxonomy in /taxonomy/ is valid :)
+----
 
 //— Generating Synthetic Data
 [[generate-synthetic-data]]
 == Let’s Generate Synthetic Data!
 
-Now that you've curated your seed examples (`qna.yaml` files), it's time to expand them into a rich training dataset using InstructLab’s Synthetic Data Generation (SDG) pipeline.
+Okay, so far so good. Now, let’s move on to the AWESOME part. We are going to use our taxonomy, which contains our `qna.yaml` file, to have the LLM automatically generate more examples. The generate step can often take a while and is dependent on your hardware and the amount of synthetic data that you want to generate.
 
-In the *Lower Terminal*, run:
+InstructLab will generate X number of additional questions and answers based on the samples provided. To give you an idea, it takes 7 minutes when running the default full synthetic data generation pipeline at a scale factor of 30. This can take around 15 minutes using Apple Silicon and depends on many factors. You could customize the scale factor or run a simple pipeline to take less time or if you have lesser hardware, but it is not recommended as it will not generate the optimal output.
 
-[source,bash]
+However, for the purpose of this workshop we will only generate a small amount of additional samples to give you a sense of how it works.
+
+NOTE: If needed, stop serving the Granite model by typing kbd:[CTRL+C] in the terminal within which it is running.
+
+We will now run the command (in the second, **bottom** Terminal) to generate the synthetic data. The merlinite model will serve as the **teacher** model:
+
+[source,console,role=execute,subs=attributes+]
 ----
-ilab generate
-----
-
-This will use a "teacher" model to generate dozens of new Q&A examples based on the patterns in your `qna.yaml` file. These synthetic examples are automatically aligned with your taxonomy and formatted to train the model effectively.
-
-Once generation completes, your new dataset will be located inside:
-
-[source,bash]
-----
-taxonomy/knowledge/[your-domain]/[subdomain]/generated/
+ilab data generate --model /home/instruct/.cache/instructlab/models/merlinite-7b-lab-Q4_K_M.gguf --sdg-scale-factor 5 --pipeline simple --gpus 1
 ----
 
+After running this command, the magic begins!
 
+NOTE: You may see an `AssertionError` thrown before the SDG process begins. This does not impact the process so please continue without worry.
+
+InstructLab is now synthetically generating data based on the seed data you provided in the `qna.yaml` file. You will see output on your screen indicating the data is being generated as shown below:
+
+[source,console]
+----
+INFO 2024-10-21 02:01:23,450 instructlab.sdg.llmblock:51: LLM server supports batched inputs: False
+INFO 2024-10-21 02:01:23,450 instructlab.sdg.pipeline:197: Running block: gen_knowledge
+INFO 2024-10-21 02:01:23,450 instructlab.sdg.pipeline:198: Dataset({
+    features: ['icl_document', 'document', 'document_outline', 'domain', 'icl_query_1', 'icl_query_2', 'icl_query_3', 'icl_response_1', 'icl_response_2', 'icl_response_3'],
+    num_rows: 10
+})
+----
+
+This will take several minutes to complete. Once the process completes and we have generated additional data, we can use the `ilab model train` command to incorporate this dataset with the model.
+
+TIP: If you are curious to view the data generated, the SDG process creates a jsonl file located in the `/home/instruct/.local/share/instructlab/datasets` directory named *knowledge_train_msgs[TIMESTAMP].jsonl* .JSONL files consist of multiple JSON objects, each on its own line.
+
+Feel free to explore this in the *Code Editor* panel, where you'll be able to see the `datasets` folder.
+
+NOTE: Using a scale factor of 5 is generally not enough synthetic data to effectively impact the knowledge or skill of a model. However, due to time constraints of this workshop, the goal is to simply show you how this works using real commands. You would typically want to use a scale factor of 30 which is the default value to train the model effectively.
+
+Once the new data has been generated, the next step is to train the model with the updated knowledge. This is performed with the `ilab model train` command.
+
+NOTE: Training using the newly generated data is a time and resource intensive task. Depending on the number of epochs desired, internet connection for safetensor downloading, and other factors, it can take many hours and is highly dependent on the hardware used.
 
 //— Fine‑Tuning The Model
 [[fine-tuning-model]]
 == Fine‑Tuning The Model With Our New Dataset
 
-With your synthetic data ready, let’s move on to fine-tuning.
-
-Fine-tuning trains the model in multiple phases:
+With your synthetic data ready, let’s move on to fine-tuning. Fine-tuning trains the model in multiple phases:
 
 * *General phase* – Aligns with broadly applicable skills.
 * *Specialized phase* – Sharpens the model with enterprise-specific tasks (in our case, 404 Airlines policies and procedures).
 
-In the *Lower Terminal*, run:
+However, due to the time constraints of this workshop, we will not actually be training the model! This would require a full-scale synthetic data generation process and a training run that could take hour(s) depending on your usage of QLoRA (a lightweight fine-tuning method that makes training feasible on consumer-grade GPUs or CPUs) or Full Fine Tuning. You probably have somewhere else you need to be, so we are going to show you the end results without making you wait. Instead, we will be using a pre-trained model that has already been trained on the data we generated in the previous step, using a MacBook Pro with a M3 chip.
 
-[source,bash]
-----
-ilab train
-----
-
-The model will begin consuming the synthetic dataset and gradually adjust its internal weights. This may take several minutes depending on your hardware.
-
-Behind the scenes, InstructLab uses QLoRA, a lightweight fine-tuning method that makes training feasible on consumer-grade GPUs or CPUs.
-
-Once complete, your newly fine-tuned model will be saved in the following directory:
-
-[source,bash]
-----
-models/
-----
-
+// add in a photo here from presentation
 
 //— Testing The Model
 [[testing-model]]
 == Testing the Model’s Responses
 
-Now it’s time to interact with the model and see what it learned.
+Now it’s time to interact with the model and see what it learned As mentioned, we have provided a model that has already been through this process in your demo system. 
 
-In the *Upper Terminal*, start the model server:
+. First, if you have any processes running in either terminal window, type kbd:[CTRL+C] to exit. In order to serve the newly trained model you can now run the following in the *upper* command window:
 
-[source,bash]
+
+//fix this model path
++
+
+[source,console,role=execute,subs=attributes+]
 ----
-ilab serve --model-path ./models/<your-finetuned-model>.gguf
+ilab model serve --model-path /home/instruct/files/summit-connect-merlinite-lab-Q4.gguf
+----
++
+
+It may take some seconds to start, but you should see the following which should look familiar to you:
++
+
+[source,console]
+----
+INFO 2024-10-20 17:24:33,497 instructlab.model.serve:136: Using model '/home/instruct/summit-connect-merlinite-lab-Q4.gguf' with -1 gpu-layers and 4096 max context size.
+INFO 2024-10-20 17:24:33,497 instructlab.model.serve:140: Serving model '/home/instruct/summit-connect-merlinite-lab-Q4.gguf' with llama-cpp
+INFO 2024-10-20 17:24:34,492 instructlab.model.backends.llama_cpp:232: Replacing chat template:
+ {% for message in messages %}
+{% if message['role'] == 'user' %}
+{{ '<|user|>
+' + message['content'] }}
+{% elif message['role'] == 'system' %}
+{{ '<|system|>
+' + message['content'] }}
+{% elif message['role'] == 'assistant' %}
+{{ '<|assistant|>
+' + message['content'] + eos_token }}
+{% endif %}
+{% if loop.last and add_generation_prompt %}
+{{ '<|assistant|>' }}
+{% endif %}
+{% endfor %}
+INFO 2024-10-20 17:24:34,495 instructlab.model.backends.llama_cpp:189: Starting server process, press CTRL+C to shutdown server...
+INFO 2024-10-20 17:24:34,495 instructlab.model.backends.llama_cpp:190: After application startup complete see http://127.0.0.1:8000/docs for API.
 ----
 
-Once the model is running, activate your Python environment in another terminal window:
+[start=2]
+. In the *bottom* terminal window, let's can begin a chat session with the `ilab chat` command:
 
-[source,bash]
+.Command
+[source,console,role=execute,subs=attributes+]
 ----
-source venv/bin/activate
-----
-
-Then launch an interactive chat session:
-
-[source,bash]
-----
-ilab chat
+ilab model chat
 ----
 
-Try asking 404 Airlines-specific questions like:
+You should see a chat prompt like the example below.
 
-[source,text]
+// fix this model name
+
+.Output
+[source,console,copy=false]
+----
+╭───────────────────────────────────────────────────────────────────────────╮
+│ Welcome to InstructLab Chat w/ 404-AIRLINES-7B-LAB-Q4_K_M.GGUF (type /h for help)                                                                                                                                      
+╰───────────────────────────────────────────────────────────────────────────╯
+>>> 
+----
+
+[start=3]
+. At this point, let's interact with the model by asking it a question. Here's some 404 Airlines-specific questions that may inspire you, such as:
+
+.Command
+[source,console,role=execute,subs=attributes+]
 ----
 What’s the maximum carry-on size for economy passengers?
 How does 404 Airlines handle refunds for weather-related cancellations?
+What are the maximum dimensions (length, width, and height) for carry-on baggage on 404 Airlines?
 ----
 
-Observe how well the model responds. If answers are inaccurate or incomplete, revisit your `qna.yaml` examples or review your taxonomy structure for improvements.
+
+You should see the model respond with a more accurate answer, as shown in the example output below:
+
+// fix this output
+
+.Output
+[source,console]
+----
+The maximum dimensions for carry-on baggage on 404 Airlines are 55 cm × 38 cm × 25 cm (approximately 21.6 in × 14.9 in × 9.8 in) in length, width, and height, respectively. This information is accurate as of April 2023 and may be subject to change, so it’s always a good idea to double-check with the airline directly for the most up-to-date information.
+----
