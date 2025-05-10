@@ -291,7 +291,7 @@ done
 
 image::seed-data.png[InstructLab,100%,100%]
 
-TIP: In addition to just providing context and question/answer pairs, you can also see the `document_outline` and `document` section of our `qna.yaml` file. This is how we ground our synthetic data generation to additional context and information (for example, in this 404-airlines-knowledge repository), providing diversity and edge cases to the dataset we'll be generating.
+TIP: In addition to just providing context and question/answer pairs, you can also see the `document_outline` and `document` section of our `qna.yaml` file. This is how we ground our synthetic data generation to additional context and information (for example, in this https://github.com/rhai-code/404-airlines-data[404‑airlines‑data] repository), providing diversity and edge cases to the dataset we’ll be generating.
 
 [start=4]
 . InstructLab also allows you to validate your taxonomy files before generating synthetic data. You can accomplish this by using the `ilab taxonomy diff` command as shown below, in either *Terminal*:
@@ -322,11 +322,12 @@ However, for the purpose of this workshop we will only generate a small amount o
 
 NOTE: If needed, stop serving the Granite model by typing kbd:[CTRL+C] in the terminal within which it is running.
 
-We will now run the command (in the second, **bottom** Terminal) to generate the synthetic data. The merlinite model will serve as the **teacher** model:
+We will now run the command (in the **Upper Terminal**) to generate the synthetic data. The Granite model will serve as the **teacher** model:
 
+[start=1]
 [source,console,role=execute,subs=attributes+]
 ----
-ilab data generate --model /home/instruct/.cache/instructlab/models/merlinite-7b-lab-Q4_K_M.gguf --sdg-scale-factor 5 --pipeline simple --gpus 1
+ilab data generate --model /home/developer/.cache/instructlab/models/granite-7b-lab-Q4_K_M.gguf --sdg-scale-factor 5 --pipeline simple --gpus 1
 ----
 
 After running this command, the magic begins!
@@ -341,7 +342,7 @@ INFO 2024-10-21 02:01:23,450 instructlab.sdg.llmblock:51: LLM server supports ba
 INFO 2024-10-21 02:01:23,450 instructlab.sdg.pipeline:197: Running block: gen_knowledge
 INFO 2024-10-21 02:01:23,450 instructlab.sdg.pipeline:198: Dataset({
     features: ['icl_document', 'document', 'document_outline', 'domain', 'icl_query_1', 'icl_query_2', 'icl_query_3', 'icl_response_1', 'icl_response_2', 'icl_response_3'],
-    num_rows: 10
+    num_rows: 15
 })
 ----
 
@@ -349,7 +350,13 @@ This will take several minutes to complete. Once the process completes and we ha
 
 TIP: If you are curious to view the data generated, the SDG process creates a jsonl file located in the `/home/instruct/.local/share/instructlab/datasets` directory named *knowledge_train_msgs[TIMESTAMP].jsonl* .JSONL files consist of multiple JSON objects, each on its own line.
 
-Feel free to explore this in the *Developer Environment* panel, where you'll be able to see the `datasets` folder.
+[start=2]
+. Feel free to explore this in the *Bottom Terminal* panel, where you can run the following command to view the generated data:
+
+[source,console,role=execute,subs=attributes+]
+----
+head -n 10 "$(ls -t /home/instruct/.local/share/instructlab/datasets/knowledge_train_msgs*.jsonl | head -1)"
+----
 
 NOTE: Using a scale factor of 5 is generally not enough synthetic data to effectively impact the knowledge or skill of a model. However, due to time constraints of this workshop, the goal is to simply show you how this works using real commands. You would typically want to use a scale factor of 30 which is the default value to train the model effectively.
 
@@ -363,7 +370,8 @@ NOTE: Training using the newly generated data is a time and resource intensive t
 
 With your synthetic data ready, let’s move on to fine-tuning. Fine-tuning trains the model in multiple phases:
 
-* *General phase* – Aligns with broadly applicable skills.
+// is this correct?
+* *General phase* – Aligns with broadly applicable skills (for example, processing unique requests, baking in tone and style).
 * *Specialized phase* – Sharpens the model with enterprise-specific tasks (in our case, 404 Airlines policies and procedures).
 
 However, due to the time constraints of this workshop, we will not actually be training the model! This would require a full-scale synthetic data generation process and a training run that could take hour(s) depending on your usage of QLoRA (a lightweight fine-tuning method that makes training feasible on consumer-grade GPUs or CPUs) or Full Fine Tuning. You probably have somewhere else you need to be, so we are going to show you the end results without making you wait. Instead, we will be using a pre-trained model that has already been trained on the data we generated in the previous step, using a MacBook Pro with a M3 chip.

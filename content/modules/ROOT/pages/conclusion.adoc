@@ -5,14 +5,31 @@
 = Conclusion
 :page-description: Key takeaways and next steps
 
-Congratulations — you’ve just customized a large language model for a specific enterprise use case using open source tools!
+Congratulations — you’ve just guided an open‑source foundation model from generic to domain‑expert, crafting a customer‑service assistant that truly "knows" 404 Airlines. Along the way, you:
 
-In this lab, you:
+* Translated internal policies into a living taxonomy that serves as the backbone for model knowledge  
+* Crafted targeted seed Q&A examples and leveraged InstructLab’s synthetic data pipeline to amplify those insights at scale  
+* Baked that dataset into a foundation model and served the model locally, in a private and secure environment
+* Validated accuracy and alignment through real‑world prompts, catching and correcting model gaps before they reach customers
+// * Embedded your custom model into the 404 Airlines demo app for end‑to‑end testing in a realistic UI  
 
-* Structured your domain data using a taxonomy
-* Created seed data and expanded it with synthetic Q&A
-* Fine-tuned a foundation model
-* Evaluated the model using test prompts
-* Integrated it into a real application
+This workflow—taxonomy → synthetic Q&A → fine‑tuning → validation → integration—is your portable blueprint for any industry challenge. You now own both the data and the model, giving you total control over updates, compliance, and feature expansion.
 
-This workflow is fully portable — you can use it for any domain, from finance to education to healthcare. Best of all, *you own the model and the data*.
+== What’s next?
+
+As you continue your AI Engineering journey, you can keep building your LLM expertise with these steps:
+
+. **Scale your synthetic data**: Increase your SDG scale factor and experiment with advanced pipelines (e.g., multi‑phase or batch generation) to deepen model understanding.  
+. **Expand taxonomy coverage**: Add new domains—loyalty programs, incident response, seasonal promotions—to broaden your model’s skill set.  
+. **Blend RAG + Fine‑Tuning**: Implement a Retrieval‑Augmented Generation layer to surface dynamic knowledge (flight statuses, real‑time alerts) alongside your fine‑tuned core.  
+. **Productionize on RHEL AI**: Migrate your prototype to Red Hat Enterprise Linux AI, leveraging enterprise‑grade monitoring, scaling, and support.  
+. **Contribute upstream**: Share your taxonomy improvements, synthetic pipelines, and best practices with the InstructLab community on GitHub—help others learn and iterate faster.  
+
+== Resources for continued learning
+
+* InstructLab Docs & CLI Guide: https://docs.instructlab.ai[InstructLab Documentation]
+* Taxonomy Best Practices: https://github.com/instructlab/taxonomy  
+* InstructLab's Synthetic Data Generation: https://github.com/instructlab/sdg  
+* Red Hat Enterprise Linux AI Overview: https://developers.redhat.com/products/rhel-ai/overview  
+
+Thank you for joining this lab. Keep iterating, keep innovating, and happy fine‑tuning! On the next page you can find some FAQs and additional resources to help you on your journey.
