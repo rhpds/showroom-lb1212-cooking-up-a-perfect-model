@@ -1,6 +1,7 @@
 // modules/ROOT/pages/fine-tuning-workshop.adoc
 :sectnums:
 :experimental:
+:toc: true
 
 = Fine‑Tuning & Customizing Model Responses
 :page-description: Full workflow for fine‑tuning with InstructLab
@@ -388,16 +389,13 @@ Now it’s time to interact with the model and see what it learned As mentioned,
 
 
 //fix this model path
-+
 
 [source,console,role=execute,subs=attributes+]
 ----
 ilab model serve --model-path /home/developer/.cache/instructlab/models/404-airlines-qa.gguf
 ----
-+
 
 It may take some seconds to start, but you should see the following which should look familiar to you:
-+
 
 [source,console]
 ----

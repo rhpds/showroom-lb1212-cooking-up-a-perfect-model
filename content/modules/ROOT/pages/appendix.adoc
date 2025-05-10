@@ -3,6 +3,7 @@
 :page-description: FAQs and additional notes
 :sectnums:
 :experimental:
+:toc: true
 
 [[faqs]]
 == FAQs
