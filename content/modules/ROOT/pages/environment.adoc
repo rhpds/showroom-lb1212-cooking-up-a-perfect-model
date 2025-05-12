@@ -2,7 +2,6 @@
 = Let’s learn about the working environment
 :page-nav-title: Working Environment
 :page-description: Overview of the interactive workshop environment
-:sectnums:
 :experimental:
 
 In this workshop, you'll have access to a comprehensive and pre-configured interactive environment, ready for you to begin working. The environment is designed to streamline each step of the InstructLab model fine-tuning process. You’ll see three primary working sections accessible through tabs in your workshop environment interface to the right:
@@ -13,8 +12,8 @@ You’ll have two vertically‑stacked terminal windows, both set up with activa
 
 image::terminal-ui.png[Terminal Dashboard]
 
-  .. *Upper Terminal:* You will use this for running & serving models with InstructLab.
-  .. *Lower Terminal:* Here you’ll run commands to validate training data, kick off your synthetic data generation pipeline, and initiate fine‑tuning tasks.
+* *Upper Terminal:* You will use this for running & serving models with InstructLab.
+* *Lower Terminal:* Here you’ll run commands to validate training data, kick off your synthetic data generation pipeline, and initiate fine‑tuning tasks.
 
 Let's go ahead and make sure everything's working by checking out InstructLab's command line interface using the following command in the *upper* terminal:
 
@@ -59,23 +58,24 @@ Aliases:
   train     model train
 ----
 
-== Visual Studio Code (VSCode)
+== Visual Studio Code (*VSCode*)
 
-Your integrated developer environment, VSCode, is pre‑loaded with a template folder containing an InstructLab taxonomy structure for you to add curated seed data for model training.
+Your integrated *Developer Environment*, VSCode, is pre‑loaded with a template folder containing an InstructLab taxonomy structure for you to add curated seed data for model training.
 
 image::vscode.png[Terminal Dashboard]
 
-  .. You will find structured directories to enter your `qna.yaml` (Question & Answer based) seed data, reflecting best practices in taxonomy‑driven data curation.
-  .. VSCode’s integrated tools help you efficiently edit and validate Markdown and YAML content as you prepare your datasets.
+* You will find structured directories to enter your `qna.yaml` (Question & Answer based) seed data, reflecting best practices in taxonomy‑driven data curation.
+* VSCode’s integrated tools help you efficiently edit and validate Markdown and YAML content as you prepare your datasets.
 
+TIP: You may need to refresh the page if you're having issues with the developer environment, due to your browser's cache.
 
-== 404 Airlines Demo Application
+== Parasol Airlines Demo Application
 
-This tab displays a mock production environment for 404 Airlines, written in Quarkus and powered by LangChain4J to later integrate our model capabilities into the application.
+This tab displays a mock production environment for Parasol Airlines, written in Quarkus and powered by LangChain4J to later integrate our model capabilities into the application.
 
 image::parasol-dashboard.png[Terminal Dashboard]
 
-  .. Here you’ll test and visualize interactions with the customized AI model, simulating customer service queries, airline policy questions, and operational guidance.
-  .. This allows for real‑time evaluation of your fine‑tuned model’s practical effectiveness, helping you clearly see the impact and value added by domain‑specific fine‑tuning.
+* Here you’ll test and visualize interactions with the customized AI model, simulating customer service queries, airline policy questions, and operational guidance.
+* This allows for real‑time evaluation of your fine‑tuned model’s practical effectiveness, helping you clearly see the impact and value added by domain‑specific fine‑tuning.
 
-Throughout the workshop, you'll navigate seamlessly between these environments, following step‑by‑step instructions provided in this tutorial. For example, you may run commands in the *Upper Terminal*, add content to *VSCode*, and perform other operations as guided. Now, let's learn how to customize models for our specific use case.
+Throughout the workshop, you'll navigate seamlessly between these environments, following step‑by‑step instructions provided in this tutorial. For example, you may run commands in the *Upper Terminal*, add content to *Developer Environment*, and perform other operations as guided. Now, let's learn how to customize models for our specific use case.

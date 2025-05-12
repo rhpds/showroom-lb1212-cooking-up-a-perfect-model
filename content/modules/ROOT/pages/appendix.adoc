@@ -1,15 +1,87 @@
 // modules/ROOT/pages/appendix.adoc
 = Appendix
 :page-description: FAQs and additional notes
-:sectnums:
 :experimental:
-:toc: true
+
 
 [[faqs]]
 == FAQs
 
+=== What are the system requirements for InstructLab?
+
+* OS: macOS (M1/M2/M3) or Linux
+* Python: 3.11
+* Disk: ≥50 GB
+* Compiler: C++ toolchain (gcc/clang)
+
 === Can InstructLab‑generated models handle real‑time dynamic data?
-Yes, when integrated with retrieval‑augmented generation (RAG), they can effectively handle dynamic datasets.
+When paired with a retrieval‑augmented generation (RAG) setup, InstructLab-generated models can integrate fresh external data at inference time. The chat and serve interfaces support updating document indexes on the fly, so the model references up-to-date information without retraining.
 
 === What differentiates SDG 1.0 from SDG 1.5?
-SDG 1.5 introduces advanced, agentic flows for cleaning and generating high‑quality synthetic data, suitable for enterprise‑grade deployment.
+SDG 1.0 is a streamlined, single-pass synthetic data generator ideal for fast prototyping. SDG 1.5 introduces an agentic flow—planning, critique, and judgment loops—that produces higher-fidelity Q&A samples suited for enterprise-grade fine-tuning.
+
+=== How does the Synthetic Data Generation (SDG) pipeline work?
+InstructLab’s SDG pipeline chains modular blocks such as LLMBlock, FilterByValueBlock, and FlattenColumnsBlock to transform source documents into question-and-answer pairs. In agentic mode, it evaluates faithfulness, relevancy, and completeness after each stage to filter out low-quality data.
+
+=== How many SDG samples should I generate for fine-tuning?
+For a balanced workload, generate up to 100 000 domain Q&A samples in the knowledge phase, then combine with 300 000 skill-based samples. This mix prevents overfitting and preserves existing capabilities during training.
+
+=== Can I run InstructLab on both laptops and servers?
+Yes. Three execution profiles are supported:
+* Laptop/Desktop: Uses LoRA or QLoRA for low-resource fine-tuning.
+* Server/VM: Full-resolution training on accelerators for multi-phase workflows.
+* RHEL AI Appliance or BYO Server: Enterprise-optimized with hardware drivers, lifecycle support, and advanced SDG flows.
+
+=== What are the two main phases of InstructLab’s fine-tuning?
+
+* Knowledge Phase: Learns factual content from synthetic Q&A, split into short-form and long-form response training.
+* Skills Phase: Refines application of learned facts across tasks—summarization, Q&A, style conversion—using a taxonomy of composable skills.
+
+=== How do I serve a fine-tuned model with InstructLab?
+Use the CLI:
+
+```bash
+ilab model serve --model-path /path/to/fine-tuned-model.gguf
+```
+
+This launches an OpenAI-compatible HTTP server on port 8000 by default, ready for standard chat payloads or LangChain integrations.
+
+=== What are best practices for crafting the qna.yaml?
+
+* Keep each context block under 750 tokens total (context + Q&A).
+* Limit individual Q&A pairs to ~250 tokens.
+* Vary context formats (paragraphs, tables, lists) to mirror real documents.
+* Restate the question intent in each answer.
+* Fence code snippets to avoid unintentional indexation.
+
+=== What hardware is recommended for consumer-grade fine-tuning?
+A modern GPU with >=16 GB VRAM (e.g., NVIDIA RTX 3080+) is ideal for QLoRA experiments. CPUs and Apple Silicon M-series chips can handle LoRA runs on smaller models.
+
+=== How does InstructLab manage catastrophic forgetting?
+The multi-phase approach and balanced sampling from existing skills data preserve previously learned behavior. A replay buffer in the pipeline ensures older samples are revisited during training.
+
+=== Can I customize generation parameters during SDG?
+Yes—modify SamplingParams (temperature, top_p, max_tokens) in the SDG configuration to control diversity and answer length.
+
+=== How do I download specific models with InstructLab?
+
+List available models with:
+
+```bash
+ilab model list
+```
+
+Then download using:
+
+```bash
+ilab model download --repository instructlab/granite-7b-lab-GGUF
+```
+
+=== How do I perform local model evaluation benchmarks?
+
+Use the `ilab model evaluate` command to run benchmarks on your local model. This command allows you to specify the evaluation dataset and metrics, providing insights into model performance and areas for improvement.
+
+```bash
+ilab model evaluate --benchmark mmlu --model path/to/model
+ilab model evaluate --benchmark mt_bench --model path/to/model
+```

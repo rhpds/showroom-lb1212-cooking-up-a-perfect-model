@@ -2,7 +2,6 @@
 = How to work with a Foundation Model
 :page-nav-title: Foundation Models
 :page-description: LLM limitations and customization approaches
-:sectnums:
 :experimental:
 
 == Models Don’t Understand Your Data
