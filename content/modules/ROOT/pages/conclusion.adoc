@@ -1,17 +1,16 @@
 // modules/ROOT/pages/conclusion.adoc
-:sectnums:
 :experimental:
 
 = Conclusion
 :page-description: Key takeaways and next steps
 
-Congratulations — you’ve just guided an open‑source foundation model from generic to domain‑expert, crafting a customer‑service assistant that truly "knows" 404 Airlines. Along the way, you:
+Congratulations — you’ve just guided an open‑source foundation model from generic to domain‑expert, crafting a customer‑service assistant that truly "knows" Parasol Airlines. Along the way, you:
 
 * Translated internal policies into a living taxonomy that serves as the backbone for model knowledge  
 * Crafted targeted seed Q&A examples and leveraged InstructLab’s synthetic data pipeline to amplify those insights at scale  
 * Baked that dataset into a foundation model and served the model locally, in a private and secure environment
 * Validated accuracy and alignment through real‑world prompts, catching and correcting model gaps before they reach customers
-// * Embedded your custom model into the 404 Airlines demo app for end‑to‑end testing in a realistic UI  
+* Embedded your custom model into the Parasol Airlines demo app for end‑to‑end testing in a realistic UI  
 
 This workflow—taxonomy → synthetic Q&A → fine‑tuning → validation → integration—is your portable blueprint for any industry challenge. You now own both the data and the model, giving you total control over updates, compliance, and feature expansion.
 

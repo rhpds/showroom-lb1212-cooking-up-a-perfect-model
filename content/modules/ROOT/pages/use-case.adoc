@@ -1,23 +1,22 @@
 // modules/ROOT/pages/use-case.adoc
-:sectnums:
 :experimental:
 
 = Understanding the workshop use case
 :page-nav-title: Workshop Use Case
-:page-description: 404 Airlines scenario overview
+:page-description: Parasol Airlines scenario overview
 
-To demonstrate InstructLab’s capabilities effectively, this workshop uses a realistic scenario centered around 404 Airlines—a hypothetical airline with specific needs in customer service, operational efficiency, and compliance management. Currently, 404 Airlines faces challenges typical for enterprises seeking to leverage AI:
+To demonstrate InstructLab’s capabilities effectively, this workshop uses a realistic scenario centered around Parasol Airlines—a hypothetical airline with specific needs in customer service, operational efficiency, and compliance management. Currently, Parasol Airlines faces challenges typical for enterprises seeking to leverage AI:
 
 . *Lack of Domain-specific AI Responses*:
-  General-purpose models cannot reliably answer detailed policy questions or provide operational instructions specific to 404 Airlines, such as precise baggage restrictions or check-in procedures.
+  General-purpose models cannot reliably answer detailed policy questions or provide operational instructions specific to Parasol Airlines, such as precise baggage restrictions or check-in procedures.
 
 . *Limited Access to Internal Data*:
   Generic models, trained solely on publicly available data, fail to understand internal airline policies or specific operational protocols, limiting their usefulness for tasks requiring precise and accurate information.
 
-To support 404's team of customer support agents, partners, and also customers, you'll be aligning a model to be a domain-expert in policies and procedures that will help boost efficiency at the airline. Specifically, the language model will be able to support the customer service team to more rapidly process and resolve inquiries from customers. As you'll learn in the next page, the fictional airline has a customer support portal to manage incoming requests, and you'll be adapting a model for this specific use case.
+To support Parasol's team of customer support agents, partners, and also customers, you'll be aligning a model to be a domain-expert in policies and procedures that will help boost efficiency at the airline. Specifically, the language model will be able to support the customer service team to more rapidly process and resolve inquiries from customers. As you'll learn in the next page, the fictional airline has a customer support portal to manage incoming requests, and you'll be adapting a model for this specific use case.
 
 image::web-ui.png[Airline Dashboard]
 
-Instead of using an _"all-purpose"_ language model that doesn't understand their unique data, 404 Airlines has decided to leverage InstructLab’s powerful synthetic data generation and taxonomy-based fine-tuning workflow to adapt a foundational AI model specifically to their internal knowledge and requirements. 
+Instead of using an _"all-purpose"_ language model that doesn't understand their unique data, Parasol Airlines has decided to leverage InstructLab’s powerful synthetic data generation and taxonomy-based fine-tuning workflow to adapt a foundational AI model specifically to their internal knowledge and requirements. 
 
-By the end of this interactive experience, you’ll have a curated and trained small language model that can assist and aid the 404 Airlines team, with better understanding, accuracy, and cost-efficiency than a generic large language model, with full control over your data and AI journey. You’ll directly experience the process of preparing specialized training data, generating synthetic examples, fine-tuning a foundational model, and finally testing your model within the simulated operational environment of 404 Airlines.
+By the end of this interactive experience, you’ll have a curated and trained small language model that can assist and aid the Parasol Airlines team, with better understanding, accuracy, and cost-efficiency than a generic large language model, with full control over your data and AI journey. You’ll directly experience the process of preparing specialized training data, generating synthetic examples, fine-tuning a foundational model, and finally testing your model within the simulated operational environment of Parasol Airlines.
